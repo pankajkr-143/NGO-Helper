@@ -34,6 +34,6 @@ router.post(
   userController.loginUser
 );
 
-router.get('/profile', authMiddleware.authUser , userController.getUserProfile);
+// router.get('/profile', authMiddleware.authUser , userController.getUserProfile);
 
 module.exports = router;

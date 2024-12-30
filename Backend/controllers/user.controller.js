@@ -12,15 +12,14 @@ module.exports.registerUser = async(req, res, next) => {
     return res.status(400).json({errors : errors.array() });
   }
 
+  const { fullname, email, password} = req.body;
+  
   console.log(req.body);
   
-  const { fullname, email, password} = req.body;
-
   const hashedPassword = await userModel.hashPassword(password);
   // const hashedPassword = await bcrypt.hash(password, 10); 
   
-  // try { 
-    const user = await userService.createUser({ 
+  const user = await userService.createUser({ 
     firstname: fullname.firstname, 
     lastname: fullname.lastname, 
     email, 
@@ -58,6 +57,6 @@ module.exports.loginUser = async(req, res, next) => {
   res.status(200).json({ token, user });
 }
 
-module.exports.getUserProfile = async(req, res, next) => {
-  res.status(200).json(req.user);
-}
+// module.exports.getUserProfile = async(req, res, next) => {
+//   res.status(200).json(req.user);
+// }
