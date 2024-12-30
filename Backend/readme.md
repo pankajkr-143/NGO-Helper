@@ -2,13 +2,14 @@
 
 ## Endpoint: `/users/register`
 
-### Method: POST
+### HTTP Method: POST
 
 ### Description:
 This endpoint is used to register a new user. It requires the user's first name, last name, email, and password.
 
 ### Request Body:
 The request body should be a JSON object containing the following fields:
+-`user` (object):
 - `fullname`: An object containing:
   - `firstname`: A string representing the user's first name (minimum 3 characters).
   - `lastname`: A string representing the user's last name (minimum 3 characters).
