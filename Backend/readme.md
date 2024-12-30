@@ -1,5 +1,8 @@
 # API Documentation
 
+<!-- user Register Docs -->
+
+
 ## Endpoint: `/users/register`
 
 ### HTTP Method: POST
@@ -77,6 +80,8 @@ The request body should be a JSON object containing the following fields:
 - Ensure that the email provided is unique and not already registered.
 - Passwords are hashed before being stored in the database for security purposes.
 
+<!-- user login Docs -->
+
 ## Endpoint: `/users/login`
 
 ### Method: POST
@@ -148,3 +153,78 @@ The request body should be a JSON object containing the following fields:
 ### Notes:
 - Ensure that the email provided is registered.
 - Passwords are compared using a secure hashing algorithm.
+
+<!-- user profile Docs -->
+
+## Endpoint: `/users/profile`
+
+### HTTP Method: GET
+
+### Description:
+This endpoint is used to get the profile of the authenticated user.
+
+### Request Headers:
+- `Authorization`: Bearer token obtained during login.
+
+### Responses:
+
+#### Success:
+- **Status Code:** 200 OK
+- **Response Body:**
+  ```json
+  {
+    "_id": "user_id_here",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com"
+  }
+  ```
+
+#### Authentication Errors:
+- **Status Code:** 401 Unauthorized
+- **Response Body:**
+  ```json
+  {
+    "message": "Authentication failed"
+  }
+  ```
+
+### Notes:
+- Ensure that the token provided is valid and not expired.
+
+<!-- user logout Docs -->
+
+## Endpoint: `/users/logout`
+
+### HTTP Method: GET
+
+### Description:
+This endpoint is used to log out the authenticated user.
+
+### Request Headers:
+- `Authorization`: Bearer token obtained during login.
+
+### Responses:
+
+#### Success:
+- **Status Code:** 200 OK
+- **Response Body:**
+  ```json
+  {
+    "message": "Logged out successfully"
+  }
+  ```
+
+#### Authentication Errors:
+- **Status Code:** 401 Unauthorized
+- **Response Body:**
+  ```json
+  {
+    "message": "Authentication failed"
+  }
+  ```
+
+### Notes:
+- Ensure that the token provided is valid and not expired.
