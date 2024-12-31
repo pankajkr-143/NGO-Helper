@@ -1,0 +1,847 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  background-color: #0056b3;
+  color: white;
+  padding-right: 10px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  border-bottom: 2px solid black;
+}
+
+header .logo img {
+  width: 70px;
+  border-radius: 50%;
+}
+
+nav {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2em;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #ffcc00;
+  text-decoration: underline;
+}
+
+
+
+
+
+.banner {
+  height: 600px;
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+.banner img {
+  width: 100%;
+  flex-shrink: 0;
+  transition: transform 0.8s ease-in-out;
+  position: absolute;
+}
+
+/* Container for the about section */
+.about-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f4f8fc;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* Content area */
+.about-content {
+  max-width: 800px;
+  margin-bottom: 30px;
+}
+
+.about-content h2 {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.about-content p {
+  font-size: 1em;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* Action cards container */
+.action-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Individual card */
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 250px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card .icon img {
+  width: 50px;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  font-size: 1.2em;
+  color: #333;
+}
+
+/* Media query for responsiveness */
+@media screen and (max-width: 768px) {
+  .card {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+/* Container for the mission section */
+.mission-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 20px;
+  background-color: #fff;
+  gap: 20px;
+  flex-wrap: wrap;
+  /* Ensures responsiveness */
+}
+
+/* Text content area */
+.mission-content {
+  max-width: 600px;
+}
+
+.mission-content h2 {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.mission-content p {
+  font-size: 1em;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* Image area */
+.mission-image img {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.vision-content {
+  max-width: 600px;
+}
+
+.vision-content p {
+  font-size: 1em;
+  color: #666;
+  line-height: 1.8;
+}
+
+.vision-image img {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.heading {
+  font-size: 2.5em;
+  color: #343a40;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.card-wrapper {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card1 {
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 100%;
+  max-width: 350px;
+  transition: transform 0.3s;
+}
+
+.card1:hover {
+  transform: translateY(-5px);
+}
+
+.card1 img {
+  width: 100%;
+  height: 200px;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.card-content h3 {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+  color: #495057;
+}
+
+.card-content p {
+  font-size: 1em;
+  color: #6c757d;
+  margin-bottom: 20px;
+}
+
+.card-content .donate-button {
+  display: inline-block;
+  background-color: #007bff;
+  color: #ffffff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.card-content .donate-button:hover {
+  background-color: #0056b3;
+}
+
+
+/* Donate Modal Styles */
+#donate-modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Background overlay */
+  z-index: 1000;
+}
+
+.donate-content {
+  background: white;
+  margin: 10% auto;
+  padding: 20px;
+  width: 40%;
+  border-radius: 10px;
+  text-align: center;
+  position: relative; /* Required for positioning the close button */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: black;
+  font-weight: bold;
+}
+
+.qr-code {
+  width: 200px;
+  height: auto;
+  margin: 20px 0;
+}
+
+.achievement-headline {
+  padding-top: 20px;
+  background-image: url('img/pexels-pixabay-207896.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.achievement-headline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  /* Adds a dark overlay for better text contrast */
+  backdrop-filter: blur(7px);
+  /* Background blur effect */
+  z-index: 1;
+}
+
+.achievement-headline h1 {
+  position: relative;
+  color: white;
+  margin-left: 45%;
+  margin-bottom: 40px;
+  margin-top: 30px;
+  z-index: 2;
+}
+
+.achievenebt-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  position: relative;
+  z-index: 2;
+}
+
+.achievement {
+  background-color: rgba(211, 198, 198, 0.9);
+  /* Semi-transparent background */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 2em;
+  padding: 1em;
+  border: 2px solid rgb(251, 7, 7);
+  border-radius: 10px;
+  cursor: pointer;
+  backdrop-filter: blur(1px);
+  /* Local blur effect */
+}
+
+.achievement:hover {
+  background: transparent;
+  color: white;
+}
+
+.team-section {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: #ffffff;
+}
+
+.team-title {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #333333;
+}
+
+.team-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.team-member {
+  width: 300px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.team-member:hover {
+  transform: translateY(-10px);
+}
+
+.team-member img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.member-info {
+ background-color:#0056b3;
+  color: #ffffff;
+  padding: 15px;
+}
+
+.member-info h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.member-info p {
+  margin: 5px 0 0;
+  font-style: italic;
+}
+
+
+
+
+.features,
+.testimonials {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.features h2,
+.testimonials h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.features .feature-list,
+.testimonials .testimonial-list {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.feature-item,
+.testimonial-item {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+footer .footer-links {
+  margin-bottom: 10px;
+}
+
+footer .footer-links a {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+footer .footer-links a:hover {
+  text-decoration: underline;
+}
+
+footer .social-icons {
+  margin-top: 10px;
+}
+
+footer .social-icons i {
+  margin: 0 5px;
+  color: white;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+footer .social-icons i:hover {
+  color: #0056b3;
+}
+
+#login-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+#signup-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+#login-modal .modal-content {
+  background: white;
+  padding: 40px 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+#signup-modal .signup-content {
+  background: white;
+  padding: 40px 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+
+#login-modal .modal-content .close-button {
+  position: absolute;
+  top: 0;
+  margin-left: 30px;
+  background: transparent;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #333;
+}
+
+#signup-modal .signup-content .close-button {
+  position: absolute;
+  top: 0;
+  margin-left: 130px;
+  background: transparent;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #333;
+}
+
+#login-modal .modal-content .close-button:hover {
+  color: #0056b3;
+}
+
+#signup-modal .signup-content .close-button:hover {
+  color: #0056b3;
+}
+
+#login-modal input {
+  width: 90%;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#signup-modal input {
+  width: 90%;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#login-modal button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 40%;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.hamber {
+  display: none;
+}
+
+#login-modal button:hover {
+  background: #004494;
+}
+
+#login-modal .signup-button {
+  background: #28a745;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 70%;
+}
+
+#signup-modal .signup-content #sign-up {
+  background: #23a341;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 40%;
+}
+
+#signup-modal .signup-content #sign-up:hover {
+  background: #218838;
+}
+
+#login-modal .signup-button:hover {
+  background: #218838;
+}
+
+#login-modal a {
+  text-decoration: none;
+  color: #0056b3;
+}
+
+#login-modal a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 500px) {
+  #header-nav {
+    display: none;
+    /* Hide nav by default */
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 10px;
+  }
+
+  .hamber {
+    display: block;
+  }
+
+  #header-nav.show {
+    display: flex;
+    /* Show nav when toggled */
+  }
+
+  #toggle-header {
+    margin-top: 10px;
+    /* Add some spacing */
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+  }
+}
+
+
+@media (max-width: 700px) {
+  header {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 10px;
+    /* Optional: Add some padding for better spacing */
+  }
+
+  nav {
+    flex-direction: column;
+    gap: 20px;
+    /* Set gap between nav items to 20px */
+    margin-top: 10px;
+  }
+
+  nav a {
+    font-size: 1em;
+    /* Optional: Adjust font size for smaller screens */
+  }
+
+  .banner {
+    padding-top: 100px;
+    height: 200px;
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .banner img {
+    width: 100%;
+    height: 200px;
+    flex-shrink: 0;
+    transition: transform 0.8s ease-in-out;
+    position: absolute;
+  }
+
+  .features .feature-list,
+  .testimonials .testimonial-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .feature-item,
+  .testimonial-item {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+
+  footer .footer-links {
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+
+  footer .social-icons {
+    flex-direction: column;
+  }
+/* /////////////////////////////////////////// */
+  #signup-modal .signup-content {
+    background: white;
+    padding: 40px 1px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+  #login-modal .modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    padding: 20px 1px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+
+  
+  #login-modal .signup-button {
+    width: 40%;
+  }
+  #login-modal button {
+    width: 40%;
+  }
+
+  #login-modal .modal-content,
+  #signup-modal .signup-content {
+    width: 90%;
+  }
+
+  #login-modal input,
+  #signup-modal input {
+    width: 90%;
+    padding: 10px;
+  }
+
+  /* #login-modal button,
+  #signup-modal #sign-up {
+    width: 70%;
+  } */
+
+  #login-modal .modal-content .close-button {
+    position: relative;
+    bottom: 0;
+    right: -130px;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+  }
+
+  #signup-modal .signup-content .close-button {
+    position: absolute;
+    top: 0;
+    margin-left: 115px;
+    background: transparent;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #333;
+  }
+
+  .achievement-headline h1 {
+    position: relative;
+    color: white;
+    margin-left: 20px;
+    margin-bottom: 40px;
+    margin-top: 30px;
+    z-index: 2;
+    font-size: 25px;
+  }
+
+  .achievenebt-box {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  .card-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .donate-content {
+    background: white;
+    margin: 50% auto;
+    padding: 20px;
+    width: 80%;
+    border-radius: 10px;
+    text-align: center;
+    position: relative; /* Required for positioning the close button */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  .team-container {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+}
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+  .mission-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .mission-content,
+  .mission-image {
+    max-width: 100%;
+  }
+
+  .mission-image img {
+    margin-top: 20px;
+  }
+}
