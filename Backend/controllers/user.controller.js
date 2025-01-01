@@ -32,10 +32,12 @@ module.exports.registerUser = async(req, res, next) => {
     password: hashedPassword 
   });
 
-  const token = user.generateAuthToken();
-
-  res.status(201).json({ token, user});
-
+  if (user) {
+    const token = user.generateAuthToken(); // Generate a token
+    res.status(201).json({ token, user}); // Include token in response
+  } else {
+    res.status(400).json({ message: 'Registration failed' });
+  }
 }
 
 // Login a user and verify the field values.
@@ -61,11 +63,11 @@ module.exports.loginUser = async(req, res, next) => {
     return res.status(401).json({message: 'Invalid Email or password'});
   }
 
-  const token = user.generateAuthToken();
+  const token = user.generateAuthToken(); // Generate a token
 
   res.cookie('token', token);
 
-  res.status(200).json({ token, user });
+  res.status(200).json({ token, user }); // Include token in response
 }
 
 // Get user profile
