@@ -16,8 +16,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.set('view engine', 'ejs');
-app.set("views", path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
+// app.set("views", path.join(__dirname, 'views'));
 // app.engine('ejs', ejsMate);
 // Serve static files from the frontend directory
 app.use(express.static(path.join(__dirname, '../frontend_Testing')));
@@ -41,7 +41,7 @@ app.post('/checkout', async (req, res) => {
         },
         unit_amount: req.body.price * 100,
         // unit_amount: 50 * 100,
-        // * 100 to convert to cents
+        // * 100 to convert to pesa
 
       },
       quantity: 1,
