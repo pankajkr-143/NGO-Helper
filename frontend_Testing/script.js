@@ -68,17 +68,17 @@ updateBanner();
 
 document.addEventListener("DOMContentLoaded", function () {
   // Select all "Donate Now" buttons
-  const donateButtons = document.querySelectorAll(".donate-button");
+  // const donateButtons = document.querySelectorAll(".donate-button");
   const donateModal = document.getElementById("donate-modal");
   const closeDonateButton = donateModal.querySelector(".close-button");
 
   // Add click event to each "Donate Now" button
-  donateButtons.forEach((button) => {
-    button.addEventListener("click", function (event) {
-      event.preventDefault(); // Prevent default link behavior
-      donateModal.style.display = "block"; // Show the modal
-    });
-  });
+  // donateButtons.forEach((button) => {
+  //   button.addEventListener("click", function (event) {
+  //     event.preventDefault(); // Prevent default link behavior
+  //     donateModal.style.display = "block"; // Show the modal
+  //   });
+  // });
 
   // Close modal when the close button is clicked
   closeDonateButton.addEventListener("click", function () {
@@ -113,6 +113,35 @@ document.addEventListener("DOMContentLoaded", function () {
     if (event.target === donateModal) {
       donateModal.style.display = "none"; // Hide the modal
     }
+  });
+});
+
+// Donate Script
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Select all "Donate Now" buttons
+  const donateButtons = document.querySelectorAll(".donate-button");
+
+  // Add click event to each "Donate Now" button
+  donateButtons.forEach((button) => {
+    button.addEventListener("click", function (event) {
+      event.preventDefault(); 
+      // Prevent default link behavior
+      const priceText = button.previousElementSibling.textContent;
+      const price = priceText.match(/\d+/)[0]; 
+      // Extract the price from the text
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = '/checkout';
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = 'price';
+      input.value = price;
+      form.appendChild(input);
+      document.body.appendChild(form);
+      form.submit(); 
+      // Submit the form
+    });
   });
 });
 
