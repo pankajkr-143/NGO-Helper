@@ -1,5 +1,7 @@
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 
+import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
     <footer className="bg-gray-800 text-white py-6 text-center">
@@ -10,9 +12,13 @@ const Footer = () => {
         <a href="#" className="mx-4 hover:underline">
           Terms of Service
         </a>
-        <a href="#" className="mx-4 hover:underline">
-          Contact
-        </a>
+        <Link
+          to="/contactus"
+          className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
+        >
+          Contact Us
+        </Link>
+        
       </div>
       <div className="social-icons mt-4 flex justify-center items-center gap-x-5">
   <FaFacebook className=" text-white text-xl hover:text-blue-500 cursor-pointer" />
