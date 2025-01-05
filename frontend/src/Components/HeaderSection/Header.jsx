@@ -5,6 +5,11 @@ import { Link } from "react-router-dom";
 const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Function to handle menu closing
+  const handleLinkClick = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
     <header className="bg-blue-700 text-white py-2.5 px-5 fixed top-0 w-full z-50 shadow-md flex justify-between items-center">
       {/* Logo */}
@@ -34,33 +39,36 @@ const Header = () => {
         <Link
           to="/"
           className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
+          onClick={handleLinkClick}
         >
           Home
         </Link>
         <Link
-          to="/"
+          to="/aboutus"
           className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
+          onClick={handleLinkClick}
         >
-          Donate
+          About Us
         </Link>
         <Link
-            to="/"
-            className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
-      >
-        About Us
-      </Link>
-        <Link
-          to="/"
+          to="/contactus"
           className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
+          onClick={handleLinkClick}
         >
-          Contact
+          Contact Us
         </Link>
-
-        {/* Links to login and signup pages */}
-        <Link to="/login" className="hover:text-yellow-400 transition duration-300 ease-in-out text-base">
+        <Link
+          to="/login"
+          className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
+          onClick={handleLinkClick}
+        >
           Login
         </Link>
-        <Link to="/signup" className="hover:text-yellow-400 transition duration-300 ease-in-out text-base">
+        <Link
+          to="/signup"
+          className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
+          onClick={handleLinkClick}
+        >
           Signup
         </Link>
       </nav>
