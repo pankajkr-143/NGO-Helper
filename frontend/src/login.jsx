@@ -1,20 +1,59 @@
 import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "./store/auth";
+
 
 const Login = () => {
-  const [formData, setFormData] = useState({
+  const [user, setUser] = useState({
     email: "",
     password: "",
   });
 
+
+  // For navigation
+  const navigate = useNavigate();
+
+  // Function to store token in local storage
+  const  {storetokenInLS}  = useAuth();
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login successful!", formData);
-    // Add API call here
+    try {
+      const response = await fetch(`http://localhost:4000/users/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      console.log("login form", response);
+
+      if (response.ok) {
+        const res_data = await response.json();
+        // alert("login successful");
+        // storeToken in local storage
+        storetokenInLS(res_data.token,);
+
+        setUser({
+          email: "",
+          password: "",
+        });
+        navigate("/");
+
+      } else {
+        alert("invalid credentials ");
+        console.log("invalid credentials");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -28,7 +67,7 @@ const Login = () => {
             type="email"
             name="email"
             placeholder="Email"
-            value={formData.email}
+            value={user.email}
             onChange={handleChange}
             className="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-700"
             required
@@ -37,7 +76,7 @@ const Login = () => {
             type="password"
             name="password"
             placeholder="Password"
-            value={formData.password}
+            value={user.password}
             onChange={handleChange}
             className="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-700"
             required
@@ -49,11 +88,9 @@ const Login = () => {
             Log In
           </button>
         </form>
-        <p className="text-sm text-center text-gray-600 mt-4">
-          Dont have an account?{" "}
-          <a href="/signup" className="text-blue-700 hover:underline">
-            Sign up here
-          </a>
+        <p className='text-center'>
+          New here?
+          <Link to='/signup' className='text-blue-600'>Create new Account</Link>
         </p>
       </div>
     </div>

@@ -1,40 +1,43 @@
 const userModel = require('../models/user.model');
 const userService = require('../services/user.service');
-const {validationResult} = require('express-validator');
+const { validationResult } = require('express-validator');
 const blacklistTokenModel = require('../models/blacklistToken.model');
 
 // register a new user and verify the field values.
 
-module.exports.registerUser = async(req, res, next) => {
-  
+module.exports.registerUser = async (req, res, next) => {
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({errors : errors.array() });
+    return res.status(400).json({ errors: errors.array() });
   }
 
-  const { fullname, email, password} = req.body;
+  const { username, email, password, confirmPassword } = req.body;
   console.log(req.body);
 
   const isUserAlreadyExist = await userModel.findOne({ email });
 
   if (isUserAlreadyExist) {
-    return res.status(400).json({message: 'User already exist'});
+    return res.status(400).json({ message: 'User already exist' });
   }
-  
-  
+
   const hashedPassword = await userModel.hashPassword(password);
+  const hashedconfirmPassword = await userModel.hashPassword(confirmPassword);
+
   // const hashedPassword = await bcrypt.hash(password, 10); 
-  
-  const user = await userService.createUser({ 
-    firstname: fullname.firstname, 
-    lastname: fullname.lastname, 
-    email, 
-    password: hashedPassword 
+
+  const user = await userService.createUser({
+    username,
+    email,
+    password: hashedPassword,
+    confirmPassword: hashedconfirmPassword
   });
 
   if (user) {
-    const token = user.generateAuthToken(); // Generate a token
-    res.status(201).json({ token, user}); // Include token in response
+    // Generate a token
+    const token = user.generateAuthToken(); 
+    // Include _id in response
+    res.status(201).json({ token, user: { _id: user._id} }); 
   } else {
     res.status(400).json({ message: 'Registration failed' });
   }
@@ -64,10 +67,11 @@ module.exports.loginUser = async(req, res, next) => {
   }
 
   const token = user.generateAuthToken(); // Generate a token
+  const userId = user._id.toString();
 
   res.cookie('token', token);
 
-  res.status(200).json({ token, user }); // Include token in response
+  res.status(200).json({ token, userId, user }); // Include token in response
 }
 
 // Get user profile

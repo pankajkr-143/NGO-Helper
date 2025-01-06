@@ -1,30 +1,83 @@
 import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "./store/auth";
 
 const Signup = () => {
-  const [formData, setFormData] = useState({
-    name: "",
+  const [user, setUser] = useState({
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-  const [error, setError] = useState(""); // State for error message
 
+  
+  // For navigation
+  const navigate = useNavigate();
+  
+  // Function to store token in local storage
+  const  {storetokenInLS}  = useAuth();
+
+
+  // State for error message
+  const [error, setError] = useState("");
+
+  // handling the form input
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  // handling the form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
+    // Print user input to console
+    // console.log("User input:", user);
+
+    // Check if passwords match
+    if (user.password !== user.confirmPassword) {
       setError("Passwords do not match");
       return;
-    }
+    };
 
-    console.log("Signup successful!", formData);
-    setError(""); // Clear error message on success
-    // Add API call here
+    try {
+      const response = await fetch(`http://localhost:4000/users/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      // console.log("Response status:", response.status);
+      // console.log("Response ok:", response.ok);
+
+      if (response.ok) {
+        const res_data = await response.json();
+        // console.log("res from server", res_data);
+
+        // storeToken in local storage
+        storetokenInLS(res_data.token,);
+        
+        setUser({
+          username: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
+        navigate("/");
+      } else {
+        const errorData = await response.json().catch(err => {
+          // console.error("Error parsing JSON:", err);
+          setError("An error occurred during signup");
+        });
+        // console.log("Error response from server:", errorData);
+        setError(errorData.message || "An error occurred during signup");
+      }
+    } catch (err) {
+      // console.error("Fetch error:", err);
+      setError("An error occurred during signup");
+    }
   };
 
   return (
@@ -37,9 +90,9 @@ const Signup = () => {
           {/* Name Input */}
           <input
             type="text"
-            name="name"
-            placeholder="Name"
-            value={formData.name}
+            name="username"
+            placeholder="user name"
+            value={user.username}
             onChange={handleChange}
             className="w-full text-sm px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-700"
             required
@@ -50,7 +103,7 @@ const Signup = () => {
             type="email"
             name="email"
             placeholder="Email"
-            value={formData.email}
+            value={user.email}
             onChange={handleChange}
             className="w-full text-sm px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-700"
             required
@@ -62,11 +115,10 @@ const Signup = () => {
               type="password"
               name="password"
               placeholder="Password"
-              value={formData.password}
+              value={user.password}
               onChange={handleChange}
-              className={`w-full text-sm px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 ${
-                error ? "border-red-500 focus:ring-red-500" : "focus:ring-blue-700"
-              }`}
+              className={`w-full text-sm px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 ${error ? "border-red-500 focus:ring-red-500" : "focus:ring-blue-700"
+                }`}
               required
             />
           </div>
@@ -77,11 +129,10 @@ const Signup = () => {
               type="password"
               name="confirmPassword"
               placeholder="Confirm Password"
-              value={formData.confirmPassword}
+              value={user.confirmPassword}
               onChange={handleChange}
-              className={`w-full text-sm px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 ${
-                error ? "border-red-500 focus:ring-red-500" : "focus:ring-blue-700"
-              }`}
+              className={`w-full text-sm px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 ${error ? "border-red-500 focus:ring-red-500" : "focus:ring-blue-700"
+                }`}
               required
             />
             {error && (
@@ -96,6 +147,10 @@ const Signup = () => {
           >
             Sign Up
           </button>
+          <p className='text-center'>
+            Alerady have a account?
+            <Link to='/login' className='text-blue-600'>Login in here</Link>
+          </p>
         </form>
       </div>
     </div>

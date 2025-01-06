@@ -1,8 +1,10 @@
 import { FaBars } from "react-icons/fa";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../store/auth";
 
 const Header = () => {
+  const { isLoggedIn } = useAuth();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -26,9 +28,8 @@ const Header = () => {
 
       {/* Navigation */}
       <nav
-        className={`${
-          isMobileMenuOpen ? "flex" : "hidden"
-        } flex-col gap-4 text-lg bg-blue-700 p-4 absolute top-full left-0 w-full md:static md:flex md:flex-row md:gap-6 md:p-0 md:w-auto`}
+        className={`${isMobileMenuOpen ? "flex" : "hidden"
+          } flex-col gap-4 text-lg bg-blue-700 p-4 absolute top-full left-0 w-full md:static md:flex md:flex-row md:gap-6 md:p-0 md:w-auto`}
       >
         {/* Links to navigate to different sections or pages */}
         <Link
@@ -44,25 +45,20 @@ const Header = () => {
           Donate
         </Link>
         <Link
-            to="/"
-            className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
-      >
-        About Us
-      </Link>
+          to="/"
+          className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
+        >
+          About Us
+        </Link>
         <Link
           to="/"
           className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
         >
           Contact
         </Link>
-
+        
         {/* Links to login and signup pages */}
-        <Link to="/login" className="hover:text-yellow-400 transition duration-300 ease-in-out text-base">
-          Login
-        </Link>
-        <Link to="/signup" className="hover:text-yellow-400 transition duration-300 ease-in-out text-base">
-          Signup
-        </Link>
+        {isLoggedIn ? ( <Link to="/logout" className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"> Logout </Link> ) : ( <> <Link to="/login" className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"> Login </Link> <Link to="/signup" className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"> Signup </Link> </> )}
       </nav>
     </header>
   );

@@ -11,13 +11,16 @@ import Testimonial from "./Components/TestimonialSection/Testimonial";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./login";
 import Signup from "./signup";
-
+import {Logout} from "./logout";
+import { AuthProvider } from "./store/auth";
 const App = () => {
   return (
     <div className="h-full overflow-y-auto"> {/* Ensure that this div allows scrolling */}
       <Router>
         {/* Header is included in all pages */}
-        <Header />
+        <AuthProvider>
+          <Header />
+        </AuthProvider>
 
         <Routes>
           {/* Home route */}
@@ -41,6 +44,7 @@ const App = () => {
           {/* Login and Signup routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/logout" element={<Logout />}/>
         </Routes>
       </Router>
     </div>

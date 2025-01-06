@@ -9,9 +9,15 @@ const userRoutes = require('./routes/user.routes');
 const cookieParser = require('cookie-parser');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
+const corsOptions = {
+  origin: "http://localhost:5173",
+  methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
+  credentials: true,
+};
+
 connectToDb();
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -20,11 +26,12 @@ app.use(cookieParser());
 // app.set("views", path.join(__dirname, 'views'));
 // app.engine('ejs', ejsMate);
 // Serve static files from the frontend directory
-app.use(express.static(path.join(__dirname, '../frontend_Testing')));
+// app.use(express.static(path.join(__dirname, '../frontend_Testing')));
 
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend_Testing/index.html'));
+  // res.sendFile(path.join(__dirname, '../frontend_Testing/index.html'));
+  res.render("hello");
 });
 
 // app.get('/donate', (req, res) => {
