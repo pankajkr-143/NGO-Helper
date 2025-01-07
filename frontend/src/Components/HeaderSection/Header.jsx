@@ -56,9 +56,20 @@ const Header = () => {
         >
           Contact
         </Link>
-        
-        {/* Links to login and signup pages */}
-        {isLoggedIn ? ( <Link to="/logout" className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"> Logout </Link> ) : ( <> <Link to="/login" className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"> Login </Link> <Link to="/signup" className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"> Signup </Link> </> )}
+
+        {/* Links to login and signup pages */} {isLoggedIn ? ( 
+          <Link to="/logout" className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"> 
+          Logout 
+          </Link> ) : ( 
+            <> 
+            <Link to="/login" className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"> 
+            Login 
+            </Link> 
+            <Link to="/signup" className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"> 
+            Signup 
+            </Link> 
+            </>
+      )}
       </nav>
     </header>
   );

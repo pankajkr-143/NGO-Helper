@@ -22,43 +22,41 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// app.set('view engine', 'ejs');
-// app.set("views", path.join(__dirname, 'views'));
-// app.engine('ejs', ejsMate);
-// Serve static files from the frontend directory
-// app.use(express.static(path.join(__dirname, '../frontend_Testing')));
-
-
-app.get('/', (req, res) => {
+// app.get('/', (req, res) => {
   // res.sendFile(path.join(__dirname, '../frontend_Testing/index.html'));
-  res.render("hello");
-});
-
-// app.get('/donate', (req, res) => {
-//   res.render('Paytem');
+  // res.render("hello");
 // });
 
-app.post('/checkout', async (req, res) => {
-  const session = await stripe.checkout.sessions.create({
-    line_items: [{
-      price_data: {
-        currency: 'inr',
-        product_data: {
-          name: 'Donation',
+
+app.post('/donate', async (req, res) => {
+  try {
+    const { price } = req.body; 
+    // Log the received price 
+    if (!price) { 
+      throw new Error('Price is required'); 
+    }
+
+    const session = await stripe.checkout.sessions.create({
+      line_items: [{
+        price_data: {
+          currency: 'inr',
+          product_data: {
+            name: 'Donation',
+          },
+          unit_amount: price * 100,
+          // * 100 to convert to pesa "unit conversion"
+  
         },
-        unit_amount: req.body.price * 100,
-        // unit_amount: 50 * 100,
-        // * 100 to convert to pesa
-
-      },
-      quantity: 1,
-    }],
-    mode: 'payment',
-    success_url: `${process.env.BASE_URL}/complete?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${process.env.BASE_URL}/cancel`,
-  });
-
-  res.redirect(session.url);
+        quantity: 1,
+      }],
+      mode: 'payment',
+      success_url: `${process.env.BASE_URL}/complete?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.BASE_URL}/cancel`,
+    });
+    res.json({ url: session.url });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 app.get('/complete', async (req, res) => {
