@@ -7,6 +7,11 @@ const Header = () => {
   const { isLoggedIn } = useAuth();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Function to handle closing the mobile menu
+  const handleLinkClick = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
     <header className="bg-blue-700 text-white py-2.5 px-5 fixed top-0 w-full z-50 shadow-md flex justify-between items-center">
       {/* Logo */}
@@ -28,48 +33,67 @@ const Header = () => {
 
       {/* Navigation */}
       <nav
-        className={`${isMobileMenuOpen ? "flex" : "hidden"
-          } flex-col gap-4 text-lg bg-blue-700 p-4 absolute top-full left-0 w-full md:static md:flex md:flex-row md:gap-6 md:p-0 md:w-auto`}
+        className={`${
+          isMobileMenuOpen ? "flex" : "hidden"
+        } flex-col gap-4 text-lg bg-blue-700 p-4 absolute top-full left-0 w-full md:static md:flex md:flex-row md:gap-6 md:p-0 md:w-auto`}
       >
         {/* Links to navigate to different sections or pages */}
         <Link
           to="/"
           className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
+          onClick={handleLinkClick}
         >
           Home
         </Link>
         <Link
-          to="/"
+          to="/Gallery"
           className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
+          onClick={handleLinkClick}
         >
-          Donate
+          Gallery
         </Link>
         <Link
-          to="/"
+          to="/aboutus"
           className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
+          onClick={handleLinkClick}
         >
           About Us
         </Link>
         <Link
           to="/"
           className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
+          onClick={handleLinkClick}
         >
           Contact
         </Link>
 
-        {/* Links to login and signup pages */} {isLoggedIn ? ( 
-          <Link to="/logout" className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"> 
-          Logout 
-          </Link> ) : ( 
-            <> 
-            <Link to="/login" className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"> 
-            Login 
-            </Link> 
-            <Link to="/signup" className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"> 
-            Signup 
-            </Link> 
-            </>
-      )}
+        {/* Links to login and signup pages */}
+        {isLoggedIn ? (
+          <Link
+            to="/logout"
+            className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
+            onClick={handleLinkClick}
+          >
+            Logout
+          </Link>
+        ) : (
+          <>
+            <Link
+              to="/login"
+              className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
+              onClick={handleLinkClick}
+            >
+              Login
+            </Link>
+            <Link
+              to="/signup"
+              className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
+              onClick={handleLinkClick}
+            >
+              Signup
+            </Link>
+          </>
+        )}
       </nav>
     </header>
   );
