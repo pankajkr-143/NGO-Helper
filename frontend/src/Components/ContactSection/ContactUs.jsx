@@ -1,6 +1,10 @@
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import { useAuth } from "../../store/auth";
 
 const ContactUs = () => {
+
+  const {user} = useAuth();
+
   return (
     <div className="bg-gray-100 text-blue-700 p-8">
       {/* Page Header */}

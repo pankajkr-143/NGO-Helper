@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { body, validationResult } = require("express-validator");
 const userController = require("../controllers/user.controller");
-const authMiddleware = require("../middlewares/auth.middleware");
+const { authMiddleware } = require("../middlewares/auth.middleware");
 
 // Registering a new user
 
@@ -66,11 +66,11 @@ router.post(
 
 // Get user profile
 
-router.get('/profile', authMiddleware.authUser , userController.getUserProfile);
+router.get('/profile', authMiddleware, userController.getUserProfile);
 
 // Logout a user
 
-router.get('/logout', authMiddleware.authUser, userController.logoutUser);
+router.get('/logout', authMiddleware, userController.logoutUser);
 
 module.exports = router;
 

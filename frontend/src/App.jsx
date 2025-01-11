@@ -15,6 +15,8 @@ import {Logout} from "./logout";
 import { AuthProvider } from "./store/auth";
 import Blog from "./Components/BlogSection/Blog";
 import Gallery from "./Components/GallerySection/Gallery";
+import ContactUs from "./Components/ContactSection/ContactUs";
+
 const App = () => {
   return (
     <div className="h-full overflow-y-auto"> {/* Ensure that this div allows scrolling */}
@@ -51,6 +53,7 @@ const App = () => {
           {/* Gallery Route */}
           <Route path="/Gallery" element={<Gallery />}/>
           <Route path="/aboutus" element={<About />}/>
+          <Route path="/contactus" element={<ContactUs />}/>
         </Routes>
       </Router>
     </div>

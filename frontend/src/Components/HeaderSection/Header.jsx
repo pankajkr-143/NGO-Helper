@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../store/auth";
 
+
 const Header = () => {
   const { isLoggedIn } = useAuth();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -60,7 +61,7 @@ const Header = () => {
           About Us
         </Link>
         <Link
-          to="/"
+          to="/contactus"
           className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
           onClick={handleLinkClick}
         >

@@ -22,10 +22,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// app.get('/', (req, res) => {
-  // res.sendFile(path.join(__dirname, '../frontend_Testing/index.html'));
+app.get('/', (req, res) => {
   // res.render("hello");
-// });
+  res.json({ message: "Welcome to the API" });
+});
 
 
 app.post('/donate', async (req, res) => {
@@ -61,19 +61,20 @@ app.post('/donate', async (req, res) => {
 
 app.get('/complete', async (req, res) => {
   const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
-
   console.log(session);
-  res.send('Payment successful');
+  // res.send('Payment successful');
+  res.json({ message: "Payment successful", session});
 });
 app.get('/cancel', (req, res) => {
-  res.send('Payment failed');
+  // res.send('Payment failed');
+  res.json({ message: "Payment failed"});
 });
 
 
 app.use('/users', userRoutes);
 
 app.use((req, res) => {
-  res.status(404).send('<h1>Error 404: Resource not found</h1>');
+  res.status(404).json({ message: "Error 404: Resource not found" });
 });
 
 module.exports = app;

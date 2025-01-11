@@ -77,7 +77,15 @@ module.exports.loginUser = async(req, res, next) => {
 // Get user profile
 
 module.exports.getUserProfile = async(req, res, next) => {
-  res.status(200).json(req.user);
+  // res.status(200).json(req.user);
+  try {
+    const userData = req.user;
+    // console.log(userData);
+    // res.status(200).json({msg: "hi user"})
+    return res.status(200).json({msg: userData});
+  } catch(error){
+    console.log(`error from the user route ${error}`)
+  }
 }
 
 // Logout a user

@@ -2,31 +2,24 @@
 
 <!-- user Register Docs -->
 
-
 ## Endpoint: `/users/register`
 
 ### HTTP Method: POST
 
 ### Description:
-This endpoint is used to register a new user. It requires the user's first name, last name, email, and password.
+This endpoint is used to register a new user. It requires the user's username, email, and password.
 
 ### Request Body:
 The request body should be a JSON object containing the following fields:
 
-- `user` (object):
-- `fullname`: An object containing:
-  - `firstname`: A string representing the user's first name (minimum 3 characters).
-  - `lastname`: A string representing the user's last name (minimum 3 characters).
+- `username`: A string containing the user's username.
 - `email`: A string representing the user's email (must be a valid email format).
 - `password`: A string representing the user's password (minimum 6 characters).
 
 ### Example Request:
 ```json
 {
-  "fullname": {
-    "firstname": "John",
-    "lastname": "Doe"
-  },
+  "username": "john",
   "email": "john.doe@example.com",
   "password": "password123"
 }
@@ -42,10 +35,7 @@ The request body should be a JSON object containing the following fields:
     "token": "jwt_token_here",
     "user": {
       "_id": "user_id_here",
-      "fullname": {
-        "firstname": "John",
-        "lastname": "Doe"
-      },
+      "username": "john",
       "email": "john.doe@example.com"
     }
   }
@@ -63,8 +53,8 @@ The request body should be a JSON object containing the following fields:
         "location": "body"
       },
       {
-        "msg": "First name must be at least 3 characters long",
-        "param": "fullname.firstname",
+        "msg": "Username must be at least 3 characters long",
+        "param": "username",
         "location": "body"
       },
       {
@@ -112,10 +102,7 @@ The request body should be a JSON object containing the following fields:
     "token": "jwt_token_here",
     "user": {
       "_id": "user_id_here",
-      "fullname": {
-        "firstname": "John",
-        "lastname": "Doe"
-      },
+      "username": "john",
       "email": "john.doe@example.com"
     }
   }
@@ -174,10 +161,7 @@ This endpoint is used to get the profile of the authenticated user.
   ```json
   {
     "_id": "user_id_here",
-    "fullname": {
-      "firstname": "John",
-      "lastname": "Doe"
-    },
+    "username": "john",
     "email": "john.doe@example.com"
   }
   ```
