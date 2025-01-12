@@ -6,6 +6,7 @@ const path = require('path');
 const app = express();
 const connectToDb = require('./db/db');
 const userRoutes = require('./routes/user.routes');
+const contactRoute = require('./routes/contact.routes');
 const cookieParser = require('cookie-parser');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
@@ -72,6 +73,7 @@ app.get('/cancel', (req, res) => {
 
 
 app.use('/users', userRoutes);
+app.use('/contact_form', contactRoute);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Error 404: Resource not found" });

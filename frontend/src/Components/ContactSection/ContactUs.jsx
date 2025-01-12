@@ -1,15 +1,67 @@
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import { useState, useEffect } from "react";
 import { useAuth } from "../../store/auth";
 
-const ContactUs = () => {
+const defaultContactFormData = {
+  username: "",
+  email: "",
+  subject: "",
+  message: "",
+};
 
-  const {user} = useAuth();
+const ContactUs = () => {
+  const [contact, setContact] = useState(defaultContactFormData);
+
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      setContact({
+        username: user.username,
+        email: user.email,
+        subject: "",
+        message: "",
+      });
+    }
+  }, [user]);
+
+  const handleInput = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setContact({
+      ...contact,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try{
+      const response = await fetch("http://localhost:4000/contact_form/contact", {
+        method: "POST",
+        headers: {
+          'Content-Type':"application/json"
+        },
+        body: JSON.stringify(contact),
+      });
+
+      if (response.ok){
+        setContact(defaultContactFormData);
+        const data = await response.json();
+        console.log(data);
+        alert('Message send successfully');
+      }
+    }catch(error){
+      alert('Message not successfully');
+      console.log(error);
+    }
+    // console.log(contact);
+  };
 
   return (
     <div className="bg-gray-100 text-blue-700 p-8">
       {/* Page Header */}
       <h1 className="text-4xl font-bold text-center mt-12 mb-8">Contact Us</h1>
-
       {/* Contact Form Section */}
       <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md border border-gray-300">
         <h2 className="text-2xl font-semibold mb-4 text-gray-500">Get in Touch</h2>
@@ -18,6 +70,9 @@ const ContactUs = () => {
             <label className="block font-medium mb-1">Name</label>
             <input
               type="text"
+              name="username"
+              value={contact.username}
+              onChange={handleInput}
               placeholder="Enter your name"
               required
               className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
@@ -27,6 +82,9 @@ const ContactUs = () => {
             <label className="block font-medium mb-1">Email</label>
             <input
               type="email"
+              name="email"
+              value={contact.email}
+              onChange={handleInput}
               placeholder="Enter your email"
               required
               className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
@@ -36,6 +94,9 @@ const ContactUs = () => {
             <label className="block font-medium mb-1">Subject</label>
             <input
               type="text"
+              name="subject"
+              value={contact.subject}
+              onChange={handleInput}
               placeholder="Enter subject"
               required
               className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
@@ -44,6 +105,9 @@ const ContactUs = () => {
           <div>
             <label className="block font-medium mb-1">Message</label>
             <textarea
+              name="message"
+              value={contact.message}
+              onChange={handleInput}
               placeholder="Your message..."
               rows="5"
               required
@@ -52,13 +116,13 @@ const ContactUs = () => {
           </div>
           <button
             type="submit"
+            onClick={handleSubmit}
             className="w-full bg-blue-700 text-white py-2 rounded hover:bg-gray-800 focus:ring-2 focus:ring-offset-2 focus:ring-gray-600"
           >
             Send Message
           </button>
         </form>
       </div>
-
       {/* Address and Map Section */}
       <div className="mt-12 text-center">
         <h2 className="text-2xl font-semibold mb-4 text-gray-600">Our Location</h2>
@@ -76,7 +140,6 @@ const ContactUs = () => {
           </div>
         </div>
       </div>
-
       {/* Social Media Section */}
       <div className="social-icons mt-8 flex justify-center items-center gap-x-5">
         <FaFacebook className="text-blue-700 text-xl hover:text-blue-500 cursor-pointer duration-500" />

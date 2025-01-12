@@ -1,8 +1,17 @@
+import { useAuth } from "../../store/auth";
+ 
+
 const About = () => {
+
+  const {user} = useAuth();
+
   return (
     <div className="flex flex-col items-center bg-gray-100 pt-16 pb-10 px-4 text-center">
       {/* Content Area */}
       <div className="max-w-4xl mb-8">
+        <h3>welcome,
+          { user ? ` ${user.username} to our website` : `to our website.`
+          }</h3>
         <h2 className="text-3xl font-bold text-gray-800 mb-5">About Our Charity</h2>
         <p className="text-lg text-gray-600 leading-relaxed">
           {`"Our NGO is dedicated to empowering communities and improving the quality of life for underprivileged

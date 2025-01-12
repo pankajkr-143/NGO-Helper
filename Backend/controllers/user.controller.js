@@ -82,7 +82,7 @@ module.exports.getUserProfile = async(req, res, next) => {
     const userData = req.user;
     // console.log(userData);
     // res.status(200).json({msg: "hi user"})
-    return res.status(200).json({msg: userData});
+    return res.status(200).json({ userData});
   } catch(error){
     console.log(`error from the user route ${error}`)
   }
