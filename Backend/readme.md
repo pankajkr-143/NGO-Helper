@@ -1,6 +1,7 @@
 # API Documentation
 
 <!-- user Register Docs -->
+### User Registration
 
 ## Endpoint: `/users/register`
 
@@ -8,6 +9,8 @@
 
 ### Description:
 This endpoint is used to register a new user. It requires the user's username, email, and password.
+
+## API Endpoints
 
 ### Request Body:
 The request body should be a JSON object containing the following fields:
@@ -29,6 +32,8 @@ The request body should be a JSON object containing the following fields:
 
 #### Success:
 - **Status Code:** 201 Created
+  - **201 Created:** User registered successfully.
+
 - **Response Body:**
   ```json
   {
@@ -43,6 +48,8 @@ The request body should be a JSON object containing the following fields:
 
 #### Validation Errors:
 - **Status Code:** 400 Bad Request
+  - **400 Bad Request:** Validation errors.
+
 - **Response Body:**
   ```json
   {
@@ -71,6 +78,7 @@ The request body should be a JSON object containing the following fields:
 - Passwords are hashed before being stored in the database for security purposes.
 
 <!-- user login Docs -->
+### User Login
 
 ## Endpoint: `/users/login`
 
@@ -96,6 +104,8 @@ The request body should be a JSON object containing the following fields:
 
 #### Success:
 - **Status Code:** 200 OK
+  - **200 OK:** User logged in successfully.
+
 - **Response Body:**
   ```json
   {
@@ -110,6 +120,8 @@ The request body should be a JSON object containing the following fields:
 
 #### Validation Errors:
 - **Status Code:** 400 Bad Request
+  - **400 Bad Request:** Validation errors.
+
 - **Response Body:**
   ```json
   {
@@ -130,6 +142,8 @@ The request body should be a JSON object containing the following fields:
 
 #### Authentication Errors:
 - **Status Code:** 401 Unauthorized
+  - **401 Unauthorized:** Invalid email or password.
+
 - **Response Body:**
   ```json
   {
@@ -142,6 +156,7 @@ The request body should be a JSON object containing the following fields:
 - Passwords are compared using a secure hashing algorithm.
 
 <!-- user profile Docs -->
+### User Profile
 
 ## Endpoint: `/users/profile`
 
@@ -157,6 +172,8 @@ This endpoint is used to get the profile of the authenticated user.
 
 #### Success:
 - **Status Code:** 200 OK
+  - **200 OK:** User profile retrieved successfully.
+
 - **Response Body:**
   ```json
   {
@@ -168,6 +185,8 @@ This endpoint is used to get the profile of the authenticated user.
 
 #### Authentication Errors:
 - **Status Code:** 401 Unauthorized
+  - **401 Unauthorized:** Authentication failed.
+
 - **Response Body:**
   ```json
   {
@@ -179,6 +198,7 @@ This endpoint is used to get the profile of the authenticated user.
 - Ensure that the token provided is valid and not expired.
 
 <!-- user logout Docs -->
+### User Logout
 
 ## Endpoint: `/users/logout`
 
@@ -194,6 +214,8 @@ This endpoint is used to log out the authenticated user.
 
 #### Success:
 - **Status Code:** 200 OK
+  - **200 OK:** User logged out successfully.
+
 - **Response Body:**
   ```json
   {
@@ -203,6 +225,8 @@ This endpoint is used to log out the authenticated user.
 
 #### Authentication Errors:
 - **Status Code:** 401 Unauthorized
+  - **401 Unauthorized:** Authentication failed.
+
 - **Response Body:**
   ```json
   {
@@ -212,3 +236,36 @@ This endpoint is used to log out the authenticated user.
 
 ### Notes:
 - Ensure that the token provided is valid and not expired.
+
+<!-- user Donation Docs -->
+
+## Features
+- View different social work initiatives
+- Make donations to support initiatives
+- Authentication for secure donations
+
+## Frontend
+The frontend is built using React and Tailwind CSS.
+
+### Components
+- **SocialworkSection/Socialwork.jsx**: Displays the list of social work initiatives and allows users to make donations.
+
+## Backend
+The backend is built using Node.js, Express, and MongoDB.
+
+### Models
+- **support.model.js**: Defines the schema for support initiatives.
+
+### Controllers
+- **support.controller.js**: Handles fetching support initiatives from the database.
+
+### Routes
+- **support.routes.js**: Defines the API routes for support initiatives.
+
+### Get Supports
+- **Endpoint:** `/support`
+- **Method:** GET
+- **Description:** Fetch all support initiatives.
+- **Responses:**
+  - **200 OK:** Support initiatives retrieved successfully.
+  - **400 Bad Request:** No support initiatives found.
