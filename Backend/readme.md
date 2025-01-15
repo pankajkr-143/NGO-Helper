@@ -1,6 +1,7 @@
 # API Documentation
 
 <!-- user Register Docs -->
+
 ### User Registration
 
 ## Endpoint: `/users/register`
@@ -8,11 +9,13 @@
 ### HTTP Method: POST
 
 ### Description:
+
 This endpoint is used to register a new user. It requires the user's username, email, and password.
 
 ## API Endpoints
 
 ### Request Body:
+
 The request body should be a JSON object containing the following fields:
 
 - `username`: A string containing the user's username.
@@ -20,6 +23,7 @@ The request body should be a JSON object containing the following fields:
 - `password`: A string representing the user's password (minimum 6 characters).
 
 ### Example Request:
+
 ```json
 {
   "username": "john",
@@ -31,7 +35,9 @@ The request body should be a JSON object containing the following fields:
 ### Responses:
 
 #### Success:
+
 - **Status Code:** 201 Created
+
   - **201 Created:** User registered successfully.
 
 - **Response Body:**
@@ -47,7 +53,9 @@ The request body should be a JSON object containing the following fields:
   ```
 
 #### Validation Errors:
+
 - **Status Code:** 400 Bad Request
+
   - **400 Bad Request:** Validation errors.
 
 - **Response Body:**
@@ -74,10 +82,12 @@ The request body should be a JSON object containing the following fields:
   ```
 
 ### Notes:
+
 - Ensure that the email provided is unique and not already registered.
 - Passwords are hashed before being stored in the database for security purposes.
 
 <!-- user login Docs -->
+
 ### User Login
 
 ## Endpoint: `/users/login`
@@ -85,14 +95,18 @@ The request body should be a JSON object containing the following fields:
 ### Method: POST
 
 ### Description:
+
 This endpoint is used to log in an existing user. It requires the user's email and password.
 
 ### Request Body:
+
 The request body should be a JSON object containing the following fields:
+
 - `email`: A string representing the user's email (must be a valid email format).
 - `password`: A string representing the user's password (minimum 6 characters).
 
 ### Example Request:
+
 ```json
 {
   "email": "john.doe@example.com",
@@ -103,7 +117,9 @@ The request body should be a JSON object containing the following fields:
 ### Responses:
 
 #### Success:
+
 - **Status Code:** 200 OK
+
   - **200 OK:** User logged in successfully.
 
 - **Response Body:**
@@ -119,7 +135,9 @@ The request body should be a JSON object containing the following fields:
   ```
 
 #### Validation Errors:
+
 - **Status Code:** 400 Bad Request
+
   - **400 Bad Request:** Validation errors.
 
 - **Response Body:**
@@ -141,7 +159,9 @@ The request body should be a JSON object containing the following fields:
   ```
 
 #### Authentication Errors:
+
 - **Status Code:** 401 Unauthorized
+
   - **401 Unauthorized:** Invalid email or password.
 
 - **Response Body:**
@@ -152,10 +172,12 @@ The request body should be a JSON object containing the following fields:
   ```
 
 ### Notes:
+
 - Ensure that the email provided is registered.
 - Passwords are compared using a secure hashing algorithm.
 
 <!-- user profile Docs -->
+
 ### User Profile
 
 ## Endpoint: `/users/profile`
@@ -163,15 +185,19 @@ The request body should be a JSON object containing the following fields:
 ### HTTP Method: GET
 
 ### Description:
+
 This endpoint is used to get the profile of the authenticated user.
 
 ### Request Headers:
+
 - `Authorization`: Bearer token obtained during login.
 
 ### Responses:
 
 #### Success:
+
 - **Status Code:** 200 OK
+
   - **200 OK:** User profile retrieved successfully.
 
 - **Response Body:**
@@ -184,7 +210,9 @@ This endpoint is used to get the profile of the authenticated user.
   ```
 
 #### Authentication Errors:
+
 - **Status Code:** 401 Unauthorized
+
   - **401 Unauthorized:** Authentication failed.
 
 - **Response Body:**
@@ -195,9 +223,11 @@ This endpoint is used to get the profile of the authenticated user.
   ```
 
 ### Notes:
+
 - Ensure that the token provided is valid and not expired.
 
 <!-- user logout Docs -->
+
 ### User Logout
 
 ## Endpoint: `/users/logout`
@@ -205,15 +235,19 @@ This endpoint is used to get the profile of the authenticated user.
 ### HTTP Method: GET
 
 ### Description:
+
 This endpoint is used to log out the authenticated user.
 
 ### Request Headers:
+
 - `Authorization`: Bearer token obtained during login.
 
 ### Responses:
 
 #### Success:
+
 - **Status Code:** 200 OK
+
   - **200 OK:** User logged out successfully.
 
 - **Response Body:**
@@ -224,7 +258,9 @@ This endpoint is used to log out the authenticated user.
   ```
 
 #### Authentication Errors:
+
 - **Status Code:** 401 Unauthorized
+
   - **401 Unauthorized:** Authentication failed.
 
 - **Response Body:**
@@ -235,37 +271,120 @@ This endpoint is used to log out the authenticated user.
   ```
 
 ### Notes:
+
 - Ensure that the token provided is valid and not expired.
 
 <!-- user Donation Docs -->
 
 ## Features
+
 - View different social work initiatives
 - Make donations to support initiatives
 - Authentication for secure donations
 
 ## Frontend
+
 The frontend is built using React and Tailwind CSS.
 
 ### Components
+
 - **SocialworkSection/Socialwork.jsx**: Displays the list of social work initiatives and allows users to make donations.
 
 ## Backend
+
 The backend is built using Node.js, Express, and MongoDB.
 
 ### Models
+
 - **support.model.js**: Defines the schema for support initiatives.
 
 ### Controllers
+
 - **support.controller.js**: Handles fetching support initiatives from the database.
 
 ### Routes
+
 - **support.routes.js**: Defines the API routes for support initiatives.
 
 ### Get Supports
+
 - **Endpoint:** `/support`
 - **Method:** GET
 - **Description:** Fetch all support initiatives.
 - **Responses:**
+
   - **200 OK:** Support initiatives retrieved successfully.
   - **400 Bad Request:** No support initiatives found.
+
+### Request Body:
+
+- `title`: (String) The title of the support item.
+
+- `description`: (String) A detailed description of the support item.
+
+- `imageLink`: (String) A URL link to an image representing the support item.
+
+- `alt`: (String) Alternative text for the image.
+
+- `donationAmount`: (Number) The amount of donation required for the support item.
+
+- **Response Body:**
+
+```json
+[
+  {
+    "title": "string",
+    "description": "string",
+    "imageLink": "string",
+    "alt": "string",
+    "donationAmount": "number"
+  }
+]
+```
+
+### Example Response:
+
+```json
+[
+  {
+    "title": "Support for Education",
+    "description": "Providing educational resources and support for underprivileged children.",
+    "imageLink": "https://example.com/images/education-support.jpg",
+    "alt": "Education Support Image",
+    "donationAmount": 500
+  },
+  {
+    "title": "Healthcare Support",
+    "description": "Offering medical assistance and healthcare services to those in need.",
+    "imageLink": "https://example.com/images/healthcare-support.jpg",
+    "alt": "Healthcare Support Image",
+    "donationAmount": 1000
+  }
+]
+```
+
+### GET /support
+
+This endpoint retrieves all support items from the database.
+
+#### Request Headers:
+
+- None
+
+#### Responses:
+
+##### Success:
+
+- **Status Code:** 200 OK
+- **Response Body:** An array of support objects.
+
+#### Error:
+
+- **Status Code:** 400 Bad Request
+- **Response Body:**
+
+```json
+{
+  "msg": "Nothing to support for now"
+}
+```
