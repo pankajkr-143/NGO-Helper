@@ -10,7 +10,6 @@ export const AuthProvider = ({ children }) => {
   const storetokenInLS = (token) => {
     setToken(token);
     return localStorage.setItem('token', token);
-    // setToken(token);
   };
   
   let isLoggedIn = !!token;
@@ -24,6 +23,7 @@ export const AuthProvider = ({ children }) => {
   // JWT AUTHENTICATION --> to get currently loggedIN user data
 
   const userAuthentication = async() => {
+    if (!token) return;
     try{
       const response = await fetch("http://localhost:4000/users/profile", {
         method: "GET",
@@ -47,6 +47,7 @@ export const AuthProvider = ({ children }) => {
   // donation support
 
   const getSupports = async() => {
+    if(!token) return;
     try{
       const response = await fetch("http://localhost:4000/support_By_Donating/support", {
         method: "GET",
@@ -62,10 +63,26 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  useEffect(() => {
-    getSupports();
-    userAuthentication();
-  }, []);
+
+  
+  // useEffect(() => {
+  //   if(token) {
+  //     getSupports();
+  //     userAuthentication();
+  //   }
+  // }, [token]);
+
+  useEffect(() => { 
+    if (token) { 
+      getSupports(); 
+    } 
+  }, [token]); 
+  
+  useEffect(() => { 
+    if (token) { 
+      userAuthentication(); 
+    } 
+  }, [token]);
 
 
   return (

@@ -4,6 +4,7 @@ import Banner from "./Components/BannerSection/Banner";
 import Feature from "./Components/FeatureSection/Feature";
 import Footer from "./Components/FooterSection/Footer";
 import Header from "./Components/HeaderSection/Header";
+import PaymentHistory from "./Components/HeaderSection/PaymentHistory";
 import Mission from "./Components/MissionSection/Mission";
 import Socialwork from "./Components/SocialworkSection/Socialwork";
 import Teamsection from "./Components/TeamSection/Teamsection";
@@ -19,7 +20,8 @@ import ContactUs from "./Components/ContactSection/ContactUs";
 
 const App = () => {
   return (
-    <div className="h-full overflow-y-auto"> {/* Ensure that this div allows scrolling */}
+    <div className="h-full overflow-y-auto"> 
+    {/* Ensure that this div allows scrolling */}
       <Router>
         {/* Header is included in all pages */}
         <AuthProvider>
@@ -54,6 +56,8 @@ const App = () => {
           <Route path="/Gallery" element={<Gallery />}/>
           <Route path="/aboutus" element={<About />}/>
           <Route path="/contactus" element={<ContactUs />}/>
+          <Route path="/paymentHistory" element={<PaymentHistory />}/>
+
         </Routes>
       </Router>
     </div>
