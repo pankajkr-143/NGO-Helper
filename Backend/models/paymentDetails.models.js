@@ -2,15 +2,11 @@ const mongoose = require('mongoose');
 
 
 const paymentSchema = new mongoose.Schema({
-  userId: {
+  sessionId: {
     type: String,
     required: true,
   },
-  transactionId: { 
-    type: String, 
-    required: true, 
-  }, 
-  amount: { 
+  amountTotal: { 
     type: Number, 
     required: true, 
   }, 

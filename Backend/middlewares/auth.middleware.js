@@ -27,6 +27,7 @@ module.exports.authUser = async (req, res, next) => {
     return res.status(401).json({ message: "Unauthorized" });
   }
 };
+
 // verifying user to get user profile
 module.exports.authMiddleware = async (req, res, next) => {
   // Log to check if middleware is called
@@ -40,20 +41,19 @@ module.exports.authMiddleware = async (req, res, next) => {
       .json({ message: "Unauthorized HTTP, Token not provided" });
   }
   
-
   const jwtToken = token.replace("Bearer", "").trim();
-  console.log("token from auth middleware", jwtToken);
+  // console.log("token from auth middleware", jwtToken);
 
   try {
     const decoded = jwt.verify(jwtToken, process.env.JWT_SECRET);
-    console.log(decoded); 
+    // console.log(decoded); 
 
     const user = await userModel.findById(decoded._id).select('username email');
     if (!user) {
       return res.status(401).json({ message: "Unauthorized. User not found." });
     }
 
-    console.log(user); 
+    // console.log(user); 
     req.user = user; // Attach user details to the request object
     req.token = token;
     req.userID = user._id;

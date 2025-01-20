@@ -14,11 +14,11 @@ const handleDonate = async (price, isLoggedIn) => {
     const response = await axios.post('http://localhost:4000/donate', { price });
 
     if (response && response.status === 200) {
-      // console.log('Donation response:', response.data); 
       // Browser console log
+      console.log('Donation response:', response.data); 
       if (response.data.url) {
-        window.location.href = response.data.url;
         // Redirect to Stripe checkout
+        window.location.href = response.data.url;
       } else {
         console.error('Failed to create checkout session');
       }
@@ -27,35 +27,6 @@ const handleDonate = async (price, isLoggedIn) => {
     console.error('Frontend error during checkout:', error); // Browser console log
   }
 };
-
-// After the user completes the donation, redirect them to the paymentHistory page
-window.addEventListener('DOMContentLoaded', async (event) => {
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.has('session_id')) {
-    try {
-      const sessionId = urlParams.get('session_id');
-      // console.log('Processing payment completion for session:', sessionId); 
-      // Browser console log
-      
-      const response = await axios.get(`http://localhost:4000/complete?session_id=${sessionId}`);
-      // console.log('Payment completion response:', response.data); 
-      // Browser console log
-      
-      if (response.data.message === "Payment successful") {
-        // Store payment history in localStorage or state management
-        localStorage.setItem('lastPayment', JSON.stringify(response.data.paymentHistory));
-        // console.log('Stored payment data:', response.data.paymentHistory); 
-        // Browser console log
-        
-        // Navigate to payment history page with the data
-        window.location.href = `/paymentHistory?transaction=${response.data.paymentHistory.transactionId}`;
-      }
-    } catch (error) {
-      console.error('Frontend error retrieving payment details:', error); 
-      // Browser console log
-    }
-  }
-});
 
 const Socialwork = () => {
   const { isLoggedIn, supports } = useAuth();

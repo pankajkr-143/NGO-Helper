@@ -14,7 +14,7 @@ const bodyParser = require('body-parser');
 const userRoutes = require('./routes/user.routes');
 const contactRoute = require('./routes/contact.routes');
 const supportRoute = require('./routes/support.routes');
-// const paymentRoute = require('./routes/payment.routes');
+const paymentRoute = require('./routes/payment.routes');
 
 const corsOptions = {
   origin: "http://localhost:5173",
@@ -31,7 +31,8 @@ app.use(cookieParser());
 app.use(bodyParser.raw({ type: 'application/json' }));
 
 
-// const { savePayment } = require('./controllers/payment.controller');
+
+const { savePayment } = require('./controllers/payment.controller');
 
 app.get('/', (req, res) => {
   // res.render("hello");
@@ -63,7 +64,10 @@ app.post('/donate', async (req, res) => {
         quantity: 1,
       }],
       mode: 'payment',
-      success_url: `${process.env.BASE_URL}/complete?session_id={CHECKOUT_SESSION_ID}`,
+      // success_url: `${process.env.BASE_URL}/complete?session_id={CHECKOUT_SESSION_ID}`
+      // success_url: `${process.env.BASE_URL}/paymentHistory`,
+      // success_url: `${process.env.BASE_URL}/paymentHistory?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: 'http://localhost:4000/paymentSuccess?session_id={CHECKOUT_SESSION_ID}',
       cancel_url: `${process.env.BASE_URL}/cancel`,
     });
     console.log('Stripe session created:', session.id);
@@ -74,42 +78,75 @@ app.post('/donate', async (req, res) => {
   }
 });
 
+app.get('/paymentSuccess', async (req, res) => {
+  const { session_id } = req.query;
 
-// app.post('/webhook', async(req, res) => { 
-//   const sig = req.headers['stripe-signature']; 
-//   let event; 
-//   try { 
-//     event = stripe.webhooks.constructEvent(req.body, sig, 'YOUR_STRIPE_WEBHOOK_SECRET'); 
-//   } catch (err) { 
-//     return res.status(400).send(`Webhook Error: ${err.message}`); 
-//   } 
-//   if (event.type === 'checkout.session.completed') { 
-//     const session = event.data.object; 
-//     // Extract relevant payment details from session 
-//     const paymentData = { 
-//       userId: session.client_reference_id, transactionId: session.id, 
-//       amount: session.amount_total / 100, currency: session.currency, 
-//       paymentStatus: session.payment_status 
-//     }; 
+  try {
+    const session = await stripe.checkout.sessions.retrieve(session_id);
+    console.log('Payment successful:', session);
 
-//     req.body.session = paymentData;
+    // Save payment details to database
+    const paymentDetails = {
+      sessionId: session.id,
+      amountTotal: session.amount_total / 100,
+      currency: session.currency,
+      paymentStatus: session.payment_status,
+      createdAt: new Date()
+    };
 
-//     try {
-      
-//       await (async () => {
-//         savePayment(req, res);
-//       }) ();
-//       if (!res.headersSent) { 
-//         res.status(201).json({ message: 'Payment saved successfully' }); 
-//       }
-//     } catch (error) {
-//       console.error('Error saving payment data:', error); 
-//       res.status(500).json({ error: error.message });
-//     }
-//   } else {
-//     res.json({ received: true});
-//   } 
-//   });
+    const formattedDate = paymentDetails.createdAt.toLocaleString('en-IN', { 
+      weekday: 'long', 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric', 
+      hour: 'numeric', 
+      minute: 'numeric', 
+      second: 'numeric', 
+      hour12: true 
+    }); 
+    // Include the formatted date in the response 
+    paymentDetails.formattedCreatedAt = formattedDate;
+    // Your function to save details
+    await savePaymentDetailsToDatabase(paymentDetails);
+
+    // Send confirmation email -- Your function to send email
+    // await sendConfirmationEmail(session.customer_email, paymentDetails); 
+
+    // Update user account  -- Your function to update user account
+    // await updateUserAccount(session.customer_email); 
+
+    // res.send('Payment was successful!');
+    res.redirect(`${process.env.BASE_URL}/paymentHistory`);
+
+  } catch (error) {
+    console.error('Error retrieving session:', error);
+    res.status(500).send('Error retrieving session details');
+  }
+});
+
+// function to save payment details to database -- Your database logic here
+async function savePaymentDetailsToDatabase(paymentDetails) { 
+  try { 
+    const Payment = require('./models/paymentDetails.models');
+    const payment = new Payment(paymentDetails);
+    await payment.save(); 
+    console.log('Payment saved successfully:', paymentDetails); 
+  } catch (error) { 
+    console.error('Error saving payment details:', error); 
+  } 
+}
+// function to send confirmation email -- Your email sending logic here
+// async function sendConfirmationEmail(email, paymentDetails) {
+  // console.log('Sending confirmation email to:', email);
+// }
+
+// function to update user account
+// async function updateUserAccount(email) {
+  // Your user account updating logic here
+  // console.log('Updating user account for:', email);
+// }
+
+
 
 app.get('/complete', async (req, res) => {
   try {
@@ -158,22 +195,12 @@ app.get('/cancel', (req, res) => {
   res.json({ message: "Payment failed"});
 });
 
-// app.get('/api/payments', async (req, res) => {
-//   try {
-//     // Replace with actual retrieval from your database
-//     const payments = await Payment.find();
-//     res.status(200).json(payments);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// });
-
 
 
 app.use('/users', userRoutes);
 app.use('/contact_form', contactRoute);
 app.use('/support_By_Donating', supportRoute);
-// app.use('/paymentHis', paymentRoute);
+app.use('/paymentHis', paymentRoute);
 
 
 
