@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../store/auth';
-import { useNavigate } from 'react-router-dom';
 
 const handleDonate = async (price, isLoggedIn) => {
   if (!isLoggedIn) {

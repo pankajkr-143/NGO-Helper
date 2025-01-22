@@ -1,11 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-const PaymentHistory = () => {
-  const payments = [
-    { _id: '1', transactionId: 'T123', amount: 100, currency: 'USD', paymentStatus: 'Completed', createdAt: '2022-01-01' },
-    { _id: '2', transactionId: 'T124', amount: 200, currency: 'EUR', paymentStatus: 'Pending', createdAt: '2022-01-02' },
-  ];
+const PaymentHistory = ({ userId }) => {
+  const [payments, setPayments] = useState([]);
 
+  useEffect(() => {
+    const fetchPayments = async () => {
+      try {
+        const response = await fetch(`http://localhost:4000/paymentHistories?userId=${userId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setPayments(data);
+        } else {
+          console.error('Error fetching payments:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching payments:', error);
+      }
+    };
+
+    fetchPayments();
+  }, [userId]); 
   return (
     <div className="p-16">
       <h2 className="text-xl font-bold mb-4 text-center">Payment History</h2>
@@ -25,7 +44,7 @@ const PaymentHistory = () => {
             <tr key={payment._id}>
               <td className="py-2 px-4 border-b border-gray-300">{payment._id}</td>
               <td className="py-2 px-4 border-b border-gray-300">{payment.transactionId}</td>
-              <td className="py-2 px-4 border-b border-gray-300">{payment.amount}</td>
+              <td className="py-2 px-4 border-b border-gray-300">{payment.amountTotal}</td>
               <td className="py-2 px-4 border-b border-gray-300">{payment.currency}</td>
               <td className="py-2 px-4 border-b border-gray-300">{payment.paymentStatus}</td>
               <td className="py-2 px-4 border-b border-gray-300">{new Date(payment.createdAt).toLocaleDateString()}</td>

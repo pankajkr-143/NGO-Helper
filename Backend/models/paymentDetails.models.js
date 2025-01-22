@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
 
-
 const paymentSchema = new mongoose.Schema({
-  sessionId: {
+  // userId: { 
+  //   type: String,
+  //   required: true,
+  // },
+  transactionId: {
     type: String,
     required: true,
   },
@@ -22,7 +25,6 @@ const paymentSchema = new mongoose.Schema({
     type: Date, 
     default: Date.now, 
   },
-
 });
 
 module.exports = mongoose.model('Payment', paymentSchema);
