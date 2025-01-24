@@ -17,6 +17,7 @@ import { AuthProvider } from "./store/auth";
 import Blog from "./Components/BlogSection/Blog";
 import Gallery from "./Components/GallerySection/Gallery";
 import ContactUs from "./Components/ContactSection/ContactUs";
+import UpcomingEvents from "./Components/EventSection/UpcomingEvents";
 
 const App = () => {
   return (
@@ -37,6 +38,7 @@ const App = () => {
                 <Banner />
                 <About />
                 <Mission />
+                <UpcomingEvents/>
                 <Socialwork />
                 <Achievement />
                 <Blog/>
@@ -44,6 +46,7 @@ const App = () => {
                 <Feature />
                 <Testimonial />
                 <Footer />
+            
               </>
             }
           />
