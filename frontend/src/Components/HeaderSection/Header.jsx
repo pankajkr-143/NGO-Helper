@@ -1,23 +1,25 @@
 import { FaBars } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../store/auth";
 
 
 
 const Header = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, LogoutUser, user } = useAuth();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false); 
-  const {user} = useAuth();
-  
-  const handleLinkClick = () =>  
-    setMobileMenuOpen(false);
-    
-  const toggleDropdown = () =>  setIsOpen(!isOpen); 
-    
+  const [isOpen, setIsOpen] = useState(false);
 
-    
+  const handleLinkClick = () =>
+    setMobileMenuOpen(false);
+
+  const toggleDropdown = () => setIsOpen(!isOpen);
+
+  useEffect(() => { 
+    console.log('isLoggedIn:', isLoggedIn);
+    console.log('user:', user);
+  }, [isLoggedIn, user]);
+
   return (
     <header className="bg-blue-700 text-white py-2.5 px-5 fixed top-0 w-full z-50 shadow-md flex justify-between items-center">
       {/* Logo */}
@@ -75,27 +77,32 @@ const Header = () => {
         {/* Links to login and signup pages */}
         {isLoggedIn ? (
           <div className="relative inline-block text-left">
-             <button 
-                onClick={toggleDropdown} 
-                className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-blue-200 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" > 
-                {user.username} 
-                </button> 
-                {isOpen && (
-                  <div 
-                    className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"> 
-                      <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu"> 
-                        <a href="/logout" 
-                            onClick={handleLinkClick} 
-                            className="hover:text-yellow-400 transition duration-300 ease-in-out block px-4 py-2 text-sm text-gray-700" role="menuitem" > 
-                            Logout 
-                        </a>
-                        <Link to=  '/paymentHistory' 
-                            className="hover:text-yellow-400 transition duration-300 ease-in-out block px-4 py-2 text-sm text-gray-700" role="menuitem" > 
-                            Your Donation 
-                        </Link>
-                      </div> 
-                    </div>)} 
-                  </div>
+            <button
+              onClick={toggleDropdown}
+              className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-blue-200 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" >
+              {user ? user.username : 'Loading...'}
+            </button>
+            {isOpen && (
+              <div
+                className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                  <button
+                    onClick={() => {
+                      LogoutUser();
+                      handleLinkClick();
+                    }}
+                    className="hover:text-yellow-400 transition duration-300 ease-in-out block px-4 py-2 text-sm text-gray-700"
+                    role="menuitem"
+                  >
+                    Logout
+                  </button>
+                  <Link to='/paymentHistory'
+                    className="hover:text-yellow-400 transition duration-300 ease-in-out block px-4 py-2 text-sm text-gray-700" role="menuitem" >
+                    Your Donation
+                  </Link>
+                </div>
+              </div>)}
+          </div>
         ) : (
           <>
             <Link

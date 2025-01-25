@@ -1,4 +1,3 @@
-// const { Scheam, model } = require("mongoose");
 const mongoose = require('mongoose');
 
 const supportSchema = new mongoose.Schema({

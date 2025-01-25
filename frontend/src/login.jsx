@@ -14,7 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   // Function to store token in local storage
-  const  {storetokenInLS}  = useAuth();
+  const  {storeTokenInLS}  = useAuth();
 
 
   const handleChange = (e) => {
@@ -39,7 +39,7 @@ const Login = () => {
         const res_data = await response.json();
         // alert("login successful");
         // storeToken in local storage
-        storetokenInLS(res_data.token,);
+        storeTokenInLS(res_data.token,);
 
         setUser({
           email: "",

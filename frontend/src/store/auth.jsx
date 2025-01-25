@@ -3,21 +3,24 @@ import { createContext, useContext, useState, useEffect } from 'react';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(localStorage.getItem('token'));
-  const [user, setUser] = useState("");
+  const [token, setToken] = useState(localStorage.getItem('token') || '');
+  const [user, setUser] = useState(null);
   const [supports, setSupports] = useState([]);
 
-  const storetokenInLS = (token) => {
-    setToken(token);
-    return localStorage.setItem('token', token);
+  const storeTokenInLS = (newToken) => {
+    setToken(newToken);
+    localStorage.setItem('token', newToken);
+    console.log('Token stored:', newToken);
   };
   
   let isLoggedIn = !!token;
   console.log("isLoggedIn", isLoggedIn)
   
   const LogoutUser = () => {
-    setToken("");
-    return localStorage.removeItem("token");
+    setToken('');
+    setUser(null);
+    localStorage.removeItem("token");
+    console.log('User logged out');
   };
 
   // JWT AUTHENTICATION --> to get currently loggedIN user data
@@ -43,11 +46,9 @@ export const AuthProvider = ({ children }) => {
 
   };
 
-
   // donation support
 
   const getSupports = async() => {
-    if(!token) return;
     try{
       const response = await fetch("http://localhost:4000/support_By_Donating/support", {
         method: "GET",
@@ -55,38 +56,23 @@ export const AuthProvider = ({ children }) => {
 
       if(response.ok){
         const data = await response.json();
-        console.log(data.msg);
         setSupports(data.msg);
       }
     }catch(error){
       console.log(`services frontend error: ${error}`)
     }
-  }
+  };
 
-
-  
-  // useEffect(() => {
-  //   if(token) {
-  //     getSupports();
-  //     userAuthentication();
-  //   }
-  // }, [token]);
-
-  useEffect(() => { 
-    if (token) { 
-      getSupports(); 
-    } 
-  }, [token]); 
-  
-  useEffect(() => { 
-    if (token) { 
-      userAuthentication(); 
-    } 
+  // Fetch supports regardless of token status
+  useEffect(() => {
+    getSupports();
+    if(token) {
+      userAuthentication();
+    }
   }, [token]);
 
-
   return (
-    <AuthContext.Provider value={{ isLoggedIn, storetokenInLS, LogoutUser, user, supports }}>
+    <AuthContext.Provider value={{ isLoggedIn, storeTokenInLS, LogoutUser, user, supports }}>
       {children}
     </AuthContext.Provider>
   );

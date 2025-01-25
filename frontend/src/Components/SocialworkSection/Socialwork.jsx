@@ -8,28 +8,23 @@ const handleDonate = async (price, isLoggedIn) => {
     return;
   }
   try {
-    // console.log('Initiating donation with amount:', price); 
-    // Browser console log
     const response = await axios.post('http://localhost:4000/donate', { price });
 
     if (response && response.status === 200) {
-      // Browser console log
       console.log('Donation response:', response.data); 
       if (response.data.url) {
-        // Redirect to Stripe checkout
         window.location.href = response.data.url;
       } else {
         console.error('Failed to create checkout session');
       }
     }
   } catch (error) {
-    console.error('Frontend error during checkout:', error); // Browser console log
+    console.error('Frontend error during checkout:', error); 
   }
 };
 
 const Socialwork = () => {
-  const { isLoggedIn, supports } = useAuth();
-
+  const { supports, isLoggedIn  } = useAuth();
 
   return (
     <div className="container mx-auto px-10 py-12 bg-gray-100">
@@ -44,11 +39,11 @@ const Socialwork = () => {
                 <h3 className="text-xl font-semibold text-gray-800">{title}</h3>
                 <p className="text-gray-600 text-sm mt-2">{description}</p>
                 <button
-                  onClick={() => handleDonate(donationAmount, isLoggedIn)}
-                  className="donate-button mt-4 inline-block py-2 px-7 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
-                >
-                  Donate {donationAmount}
-                </button>
+                    onClick={() => handleDonate(donationAmount , isLoggedIn)}
+                    className="donate-button mt-4 inline-block py-2 px-7 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
+                  >
+                    Donate {donationAmount}
+                  </button>
               </div>
             </div>
           );

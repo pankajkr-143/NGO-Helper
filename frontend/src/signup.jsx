@@ -15,7 +15,7 @@ const Signup = () => {
   const navigate = useNavigate();
   
   // Function to store token in local storage
-  const  {storetokenInLS}  = useAuth();
+  const  { storeTokenInLS }  = useAuth();
 
 
   // State for error message
@@ -57,7 +57,7 @@ const Signup = () => {
         // console.log("res from server", res_data);
 
         // storeToken in local storage
-        storetokenInLS(res_data.token,);
+        storeTokenInLS(res_data.token,);
         
         setUser({
           username: "",

@@ -37,7 +37,7 @@ module.exports.registerUser = async (req, res, next) => {
     // Generate a token
     const token = user.generateAuthToken(); 
     // Include _id in response
-    res.status(201).json({ token, user: { _id: user._id} }); 
+    res.status(201).json({ token, user: { userId: user._id} }); 
   } else {
     res.status(400).json({ message: 'Registration failed' });
   }
