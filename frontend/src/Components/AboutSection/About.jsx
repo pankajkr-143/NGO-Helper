@@ -1,9 +1,18 @@
 import { useAuth } from "../../store/auth";
- 
+import { useNavigate } from 'react-router-dom';
 
 const About = () => {
+  const { user, isLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
-  const {user} = useAuth();
+  const handleVolunteerClick = () => {
+    if (!isLoggedIn) {
+      alert('Please login to volunteer');
+      navigate('/login');
+    } else {
+      navigate('/volunteer');
+    }
+  };
 
   return (
     <div className="flex flex-col items-center bg-gray-100 pt-16 pb-10 px-4 text-center">
@@ -30,7 +39,10 @@ const About = () => {
       {/* Action Cards */}
       <div className="flex flex-wrap justify-center gap-6">
         {/* Volunteer Card */}
-        <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition duration-300 w-64 text-center p-6 cursor-pointer">
+        <button 
+          onClick={handleVolunteerClick}
+          className="bg-white rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition duration-300 w-64 text-center p-6 cursor-pointer"
+        >
           <div className="flex justify-center mb-4">
             <img
               className="w-12"
@@ -39,7 +51,7 @@ const About = () => {
             />
           </div>
           <h3 className="text-lg font-semibold text-gray-800">Become a Volunteer</h3>
-        </div>
+        </button>
 
         {/* Donate Card */}
         <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition duration-300 w-64 text-center p-6 cursor-pointer">

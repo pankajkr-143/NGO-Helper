@@ -1,54 +1,47 @@
-import  { useState } from "react";
-import { motion } from "framer-motion";
-import image1 from "../../assets/Image1.webp";
-import image2 from "../../assets/Image2.webp";
-import image3 from "../../assets/Image3.webp";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../store/auth';
+import { motion } from 'framer-motion';
+import image1 from '../../assets/Image1.webp';
+import image2 from '../../assets/Image2.webp';
+import image3 from '../../assets/Image3.webp';
 
 const UpcomingEvents = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  const handleVolunteerClick = () => {
+    if (!isLoggedIn) {
+      alert('Please login to volunteer');
+      navigate('/login');
+    } else {
+      navigate('/volunteer');
+    }
+  };
 
   const [events, setEvents] = useState([
     {
       id: 1,
-      title: "Community Clean-Up Drive",
-      date: "March 1, 2025",
-      description: "Join us to clean our community parks and streets.",
+      title: 'Community Clean-Up Drive',
+      date: 'March 1, 2025',
+      description: 'Join us to clean our community parks and streets.',
       image: image1,
     },
     {
       id: 2,
-      title: "Charity Fundraising Marathon",
-      date: "April 15, 2025",
-      description: "Participate in a marathon to raise funds for education.",
+      title: 'Charity Fundraising Marathon',
+      date: 'April 15, 2025',
+      description: 'Participate in a marathon to raise funds for education.',
       image: image2,
     },
     {
       id: 3,
-      title: "Tree Plantation Campaign",
-      date: "May 10, 2025",
-      description: "Help us plant trees to make the world greener.",
+      title: 'Tree Plantation Campaign',
+      date: 'May 10, 2025',
+      description: 'Help us plant trees to make the world greener.',
       image: image3,
     },
   ]);
-
-  const handleVolunteerClick = (eventTitle) => {
-    if (!loggedIn) {
-      alert("You must be logged in to volunteer for this event.");
-    } else {
-      alert(`Thank you for volunteering for "${eventTitle}"!`);
-    }
-  };
-
-  const addEvent = () => {
-    const newEvent = {
-      id: events.length + 1,
-      title: "New Event " + (events.length + 1),
-      date: "June 20, 2025",
-      description: "This is a new upcoming event. Stay tuned for details!",
-      image: "https://via.placeholder.com/300x200",
-    };
-    setEvents((prevEvents) => [...prevEvents, newEvent]);
-  };
 
   return (
     <section className="bg-gradient-to-br from-indigo-900 via-blue-800 to-blue-600 text-white py-16 px-6 sm:px-12 md:px-24 lg:px-36">
@@ -59,14 +52,6 @@ const UpcomingEvents = () => {
         <p className="text-xl font-light text-blue-200">
           Join our community and make a difference by participating in these impactful events.
         </p>
-        {loggedIn && (
-          <button
-            className="mt-6 px-6 py-2 bg-yellow-400 text-black font-semibold rounded-lg shadow-md hover:bg-yellow-500 transition-colors duration-300"
-            onClick={addEvent}
-          >
-            Add Event
-          </button>
-        )}
       </div>
       <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {events.map((event) => (
@@ -92,8 +77,8 @@ const UpcomingEvents = () => {
                   Learn More
                 </button>
                 <button
+                  onClick={handleVolunteerClick}
                   className="px-4 py-2 bg-yellow-400 text-black rounded-lg hover:bg-yellow-500 transition-colors duration-300"
-                  onClick={() => handleVolunteerClick(event.title)}
                 >
                   Volunteer
                 </button>

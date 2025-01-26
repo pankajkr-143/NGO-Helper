@@ -6,6 +6,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token') || '');
   const [user, setUser] = useState(null);
   const [supports, setSupports] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!token);
 
   const storeTokenInLS = (newToken) => {
     setToken(newToken);
@@ -13,8 +14,8 @@ export const AuthProvider = ({ children }) => {
     console.log('Token stored:', newToken);
   };
   
-  let isLoggedIn = !!token;
-  console.log("isLoggedIn", isLoggedIn)
+  // let isLoggedIn = !!token;
+  // console.log("isLoggedIn", isLoggedIn)
   
   const LogoutUser = () => {
     setToken('');
@@ -63,7 +64,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Fetch supports regardless of token status
+  useEffect(() => {
+    setIsLoggedIn(!!token);
+  }, [token]);
+
   useEffect(() => {
     getSupports();
     if(token) {

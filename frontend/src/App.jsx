@@ -18,6 +18,7 @@ import Blog from "./Components/BlogSection/Blog";
 import Gallery from "./Components/GallerySection/Gallery";
 import ContactUs from "./Components/ContactSection/ContactUs";
 import UpcomingEvents from "./Components/EventSection/UpcomingEvents";
+import VolunteerForm from "./Components/EventSection/volunteerForm";
 
 const App = () => {
   return (
@@ -60,6 +61,7 @@ const App = () => {
           <Route path="/aboutus" element={<About />}/>
           <Route path="/contactus" element={<ContactUs />}/>
           <Route path="/paymentHistory" element={<PaymentHistory />}/>
+          <Route path="/volunteer" element={<VolunteerForm />}/>
 
         </Routes>
       </Router>
