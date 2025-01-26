@@ -15,6 +15,7 @@ const userRoutes = require('./routes/user.routes');
 const contactRoute = require('./routes/contact.routes');
 const supportRoute = require('./routes/support.routes');
 const paymentRoute = require('./routes/payment.routes');
+const volunteerRoute = require('./routes/volunteer.routes');
 
 const corsOptions = {
   origin: "http://localhost:5173",
@@ -214,6 +215,8 @@ app.use('/users', userRoutes);
 app.use('/contact_form', contactRoute);
 app.use('/support_By_Donating', supportRoute);
 app.use('/paymentHis', paymentRoute);
+app.use('/volunteer', volunteerRoute);
+
 
 
 
