@@ -56,7 +56,7 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your full name"
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-600"
             />
           </div>
           <div>
@@ -67,7 +67,7 @@ const VolunteerForm = () => {
               value={formData.Dob}
               onChange={handleInput}
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-600"
             />
           </div>
           <div>
@@ -79,7 +79,7 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your phone number"
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-600"
             />
           </div>
           <div>
@@ -91,7 +91,7 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your email"
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-600"
             />
           </div>
           <div>
@@ -103,7 +103,7 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your city"
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-600"
             />
           </div>
           <div>
@@ -115,7 +115,7 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your state"
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-600"
             />
           </div>
           <div>
@@ -127,7 +127,7 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your address"
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-600"
             />
           </div>
           <div>
@@ -139,7 +139,7 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your pincode"
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-600"
             />
           </div>
           <div>
@@ -150,11 +150,11 @@ const VolunteerForm = () => {
               value={formData.availability}
               onChange={handleInput}
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-600"
             />
           </div>
           <div>
-            <label className="block text-lg font-medium mb-2">Skills</label>
+            <label className="block text-lg font-medium mb-2 ">Skills</label>
             <input
               type="text"
               name="skills"
@@ -162,7 +162,7 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your skills"
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-600"
             />
           </div>
           <div>
@@ -174,7 +174,7 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your experience"
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-600"
             />
           </div>
           <div>
@@ -186,7 +186,7 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your interest"
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-600"
             />
           </div>
           <div>
@@ -198,7 +198,7 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your reason"
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-600"
             />
           </div>
           <div>
@@ -210,7 +210,7 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your reference"
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-8"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-8 text-gray-600"
             />
           </div>
           <button
