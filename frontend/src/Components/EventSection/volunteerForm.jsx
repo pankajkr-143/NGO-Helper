@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import axios from 'axios'; 
 import { useNavigate } from 'react-router-dom';
-
 
 const VolunteerForm = () => {
    const navigate = useNavigate();
@@ -36,23 +35,20 @@ const VolunteerForm = () => {
       console.log('Form submitted successfully', response.data);
       alert('Form Data sent successfully');
       navigate('/');
-
-
     } catch (error) {
       console.error('Error submitting form', error);
-      alert('Form Data not successfully');
-
+      alert('Form Data not submitted successfully');
     }
   };
 
   return (
-    <div className="bg-gray-100 text-blue-700 p-8">
-      <h1 className="text-4xl font-bold text-center mt-12 mb-8">Volunteer Form</h1>
-      <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md border border-gray-300">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-500">Get in Touch</h2>
-        <form className="space-y-4" onSubmit={handleSubmit}>
+    <div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-16 px-6">
+      <h1 className="text-4xl font-bold text-center mt-6 mb-8">Volunteer Form</h1>
+      <div className="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+        <h2 className="text-2xl font-semibold mb-1 text-gray-700">Get in Touch</h2>
+        <form className="space-y-0" onSubmit={handleSubmit}>
           <div>
-            <label className="block font-medium mb-1">Full Name</label>
+            <label className="block text-lg font-medium mb-2">Full Name</label>
             <input
               type="text"
               name="fullName"
@@ -60,22 +56,22 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your full name"
               required
-              className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div>
-            <label className="block font-medium mb-1">Date of Birth</label>
+            <label className="block text-lg font-medium mb-2">Date of Birth</label>
             <input
               type="date"
               name="Dob"
               value={formData.Dob}
               onChange={handleInput}
               required
-              className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div>
-            <label className="block font-medium mb-1">Phone Number</label>
+            <label className="block text-lg font-medium mb-2">Phone Number</label>
             <input
               type="number"
               name="phoneNo"
@@ -83,11 +79,11 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your phone number"
               required
-              className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div>
-            <label className="block font-medium mb-1">Email</label>
+            <label className="block text-lg font-medium mb-2">Email</label>
             <input
               type="email"
               name="email"
@@ -95,11 +91,11 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your email"
               required
-              className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div>
-            <label className="block font-medium mb-1">City</label>
+            <label className="block text-lg font-medium mb-2">City</label>
             <input
               type="text"
               name="city"
@@ -107,11 +103,11 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your city"
               required
-              className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div>
-            <label className="block font-medium mb-1">State</label>
+            <label className="block text-lg font-medium mb-2">State</label>
             <input
               type="text"
               name="state"
@@ -119,11 +115,11 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your state"
               required
-              className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div>
-            <label className="block font-medium mb-1">Address</label>
+            <label className="block text-lg font-medium mb-2">Address</label>
             <input
               type="text"
               name="address"
@@ -131,11 +127,11 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your address"
               required
-              className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div>
-            <label className="block font-medium mb-1">Pincode</label>
+            <label className="block text-lg font-medium mb-2">Pincode</label>
             <input
               type="number"
               name="pincode"
@@ -143,22 +139,22 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your pincode"
               required
-              className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div>
-            <label className="block font-medium mb-1">Availability</label>
+            <label className="block text-lg font-medium mb-2">Availability</label>
             <input
               type="date"
               name="availability"
               value={formData.availability}
               onChange={handleInput}
               required
-              className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div>
-            <label className="block font-medium mb-1">Skills</label>
+            <label className="block text-lg font-medium mb-2">Skills</label>
             <input
               type="text"
               name="skills"
@@ -166,11 +162,11 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your skills"
               required
-              className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div>
-            <label className="block font-medium mb-1">Experience</label>
+            <label className="block text-lg font-medium mb-2">Experience</label>
             <input
               type="text"
               name="experience"
@@ -178,11 +174,11 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your experience"
               required
-              className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div>
-            <label className="block font-medium mb-1">Interest</label>
+            <label className="block text-lg font-medium mb-2">Interest</label>
             <input
               type="text"
               name="interest"
@@ -190,11 +186,11 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your interest"
               required
-              className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div>
-            <label className="block font-medium mb-1">Reason</label>
+            <label className="block text-lg font-medium mb-2">Reason</label>
             <input
               type="text"
               name="reason"
@@ -202,11 +198,11 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your reason"
               required
-              className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div>
-            <label className="block font-medium mb-1">Reference</label>
+            <label className="block text-lg font-medium ">Reference</label>
             <input
               type="text"
               name="reference"
@@ -214,12 +210,12 @@ const VolunteerForm = () => {
               onChange={handleInput}
               placeholder="Enter your reference"
               required
-              className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-8"
             />
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-700 text-white py-2 rounded hover:bg-gray-800 focus:ring-2 focus:ring-offset-2 focus:ring-gray-600"
+            className="w-full bg-indigo-600 text-white py-3 rounded-lg  hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
             Submit
           </button>

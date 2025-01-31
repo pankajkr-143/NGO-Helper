@@ -20,7 +20,7 @@ const UpcomingEvents = () => {
   };
 
   const [events, setEvents] = useState([
-    {
+      {
       id: 1,
       title: 'Community Clean-Up Drive',
       date: 'March 1, 2025',
@@ -57,28 +57,28 @@ const UpcomingEvents = () => {
         {events.map((event) => (
           <motion.div
             key={event.id}
-            className="bg-gradient-to-t from-blue-800 via-blue-500 to-blue-300 rounded-lg shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105 flex flex-col"
+            className="bg-gradient-to-t from-blue-800 via-blue-500 to-blue-300 rounded-lg shadow-xl overflow-hidden transform transition-transform duration-200 hover:scale-105 flex flex-col"
             whileHover={{ scale: 1.05 }}
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.1, delay: 0 }}
+            transition={{ duration: 0.2, delay: 0 }}
           >
             <img
               src={event.image}
               alt={event.title}
-              className="w-full h-40 object-cover"
+              className="w-full h-48 object-cover"
             />
-            <div className="flex flex-col flex-grow p-4">
-              <h3 className="text-lg font-semibold text-gray-100">{event.title}</h3>
-              <p className="text-xs text-gray-300 mb-2">{event.date}</p>
-              <p className="text-sm text-gray-200 flex-grow">{event.description}</p>
-              <div className="flex justify-between mt-4">
-                <button className="px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 transition-colors duration-300">
+            <div className="flex flex-col flex-grow p-6">
+              <h3 className="text-lg font-semibold text-gray-100 mb-2">{event.title}</h3>
+              <p className="text-xs text-gray-300 mb-4">{event.date}</p>
+              <p className="text-sm text-gray-200 mb-6 flex-grow">{event.description}</p>
+              <div className="flex justify-between space-x-4 mt-4">
+                <button className="px-1.5 text-sm py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
                   Learn More
                 </button>
                 <button
                   onClick={handleVolunteerClick}
-                  className="px-4 py-2 bg-yellow-400 text-black rounded-lg hover:bg-yellow-500 transition-colors duration-300"
+                  className="px-1.5 py-2 text-sm  bg-yellow-400 text-black rounded-lg hover:bg-yellow-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50"
                 >
                   Volunteer
                 </button>

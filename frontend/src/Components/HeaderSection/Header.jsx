@@ -3,120 +3,93 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../store/auth";
 
-
-
 const Header = () => {
   const { isLoggedIn, LogoutUser, user } = useAuth();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
 
-  const handleLinkClick = () =>
-    setMobileMenuOpen(false);
+  const handleLinkClick = () => setMobileMenuOpen(false);
+  const toggleDropdown = () => setDropdownOpen(!isDropdownOpen);
 
-  const toggleDropdown = () => setIsOpen(!isOpen);
-
-  useEffect(() => { 
-    console.log('isLoggedIn:', isLoggedIn);
-    console.log('user:', user);
+  useEffect(() => {
+    console.log("isLoggedIn:", isLoggedIn);
+    console.log("user:", user);
   }, [isLoggedIn, user]);
 
   return (
-    <header className="bg-blue-700 text-white py-2.5 px-5 fixed top-0 w-full z-50 shadow-md flex justify-between items-center">
+    <header className="bg-blue-700 text-white py-3 px-5 fixed top-0 w-full z-50 shadow-lg flex justify-between items-center">
       {/* Logo */}
       <div className="flex items-center">
         <img
-          src="https://img.freepik.com/premium-vector/social-charity-heart-abstract-human-logo_23758-114.jpg?ga=GA1.1.345411300.1719397064&semt=ais_hybrid"
+          src="https://img.freepik.com/premium-vector/social-charity-heart-abstract-human-logo_23758-114.jpg"
           alt="NGO Logo"
           className="w-10 h-10 rounded-full"
         />
       </div>
 
-      {/* Hamburger Icon (Visible on small screens only) */}
+      {/* Hamburger Icon for Mobile */}
       <button
-        className="text-white text-2xl md:hidden"
+        className="text-white text-2xl md:hidden ml-auto"
         onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
       >
         <FaBars />
       </button>
 
-      {/* Navigation */}
+      {/* Navigation Menu */}
       <nav
-        className={`${isMobileMenuOpen ? "flex" : "hidden"
-          } flex-col gap-4 text-lg bg-blue-700 p-4 absolute top-full left-0 w-full md:static md:flex md:flex-row md:gap-6 md:p-0 md:w-auto`}
+        className={`absolute top-full right-0 w-28 bg-blue-700 transition-all duration-300 ease-in-out md:static md:w-auto md:flex md:gap-4 md:justify-center ${
+          isMobileMenuOpen ? "block" : "hidden md:flex"
+        }`}
       >
-        {/* Links to navigate to different sections or pages */}
-        <Link
-          to="/"
-          className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
-          onClick={handleLinkClick}
-        >
+        <Link to="/" className="block py-2 px-4 hover:text-yellow-400" onClick={handleLinkClick}>
           Home
         </Link>
-        <Link
-          to="/Gallery"
-          className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
-          onClick={handleLinkClick}
-        >
+        <Link to="/Gallery" className="block py-2 px-4 hover:text-yellow-400" onClick={handleLinkClick}>
           Gallery
         </Link>
-        <Link
-          to="/aboutus"
-          className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
-          onClick={handleLinkClick}
-        >
+        <Link to="/aboutus" className="block py-2 px-4 hover:text-yellow-400" onClick={handleLinkClick}>
           About Us
         </Link>
-        <Link
-          to="/contactus"
-          className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
-          onClick={handleLinkClick}
-        >
+        <Link to="/contactus" className="block py-2 px-4 hover:text-yellow-400" onClick={handleLinkClick}>
           Contact
         </Link>
 
-        {/* Links to login and signup pages */}
+        {/* User Authentication Menu */}
         {isLoggedIn ? (
-          <div className="relative inline-block text-left">
+          <div className="relative inline-block text-justify">
             <button
               onClick={toggleDropdown}
-              className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-blue-200 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" >
-              {user ? user.username : 'Loading...'}
+              className="bg-blue-200 text-gray-700 px-4 py-2 rounded-md shadow-md hover:bg-gray-100 text-md ml-2 mb-3 md:ml-0 md:mb-0"
+            >
+              {user ? user.username : "Loading..."}
             </button>
-            {isOpen && (
-              <div
-                className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                  <button
-                    onClick={() => {
-                      LogoutUser();
-                      handleLinkClick();
-                    }}
-                    className="hover:text-yellow-400 transition duration-300 ease-in-out block px-4 py-2 text-sm text-gray-700"
-                    role="menuitem"
-                  >
-                    Logout
-                  </button>
-                  <Link to='/paymentHistory'
-                    className="hover:text-yellow-400 transition duration-300 ease-in-out block px-4 py-2 text-sm text-gray-700" role="menuitem" >
-                    Your Donation
-                  </Link>
-                </div>
-              </div>)}
+            {isDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50">
+                <button
+                  onClick={() => {
+                    LogoutUser();
+                    handleLinkClick();
+                  }}
+                  className="block px-3 py-1 text-gray-700 hover:bg-gray-100"
+                >
+                  Logout
+                </button>
+                <Link
+                  to="/paymentHistory"
+                  className="block px-3 py-1 text-gray-700 hover:bg-gray-100"
+                  onClick={handleLinkClick}
+                >
+                  Your Donation
+                </Link>
+              </div>
+            )}
           </div>
         ) : (
           <>
-            <Link
-              to="/login"
-              className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
-              onClick={handleLinkClick}
-            >
+            <Link to="/login" className="block py-2 px-4 hover:text-yellow-400" onClick={handleLinkClick}>
               Login
             </Link>
-            <Link
-              to="/signup"
-              className="hover:text-yellow-400 transition duration-300 ease-in-out text-base"
-              onClick={handleLinkClick}
-            >
+            <Link to="/signup" className="block py-2 px-4 hover:text-yellow-400" onClick={handleLinkClick}>
               Signup
             </Link>
           </>
