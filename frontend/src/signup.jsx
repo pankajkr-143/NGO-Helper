@@ -66,6 +66,7 @@ const Signup = () => {
           confirmPassword: "",
         });
         navigate("/");
+        window.location.reload();
       } else {
         const errorData = await response.json().catch(err => {
           // console.error("Error parsing JSON:", err);
