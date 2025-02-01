@@ -46,6 +46,7 @@ const Login = () => {
           password: "",
         });
         navigate("/");
+        window.location.reload();
 
       } else {
         alert("invalid credentials ");

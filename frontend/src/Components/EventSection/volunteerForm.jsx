@@ -1,10 +1,12 @@
-import  { useState } from 'react';
-import axios from 'axios'; 
+import { useState, useEffect } from "react";
+import axios from 'axios';
+import { useAuth } from "../../store/auth";
+
 import { useNavigate } from 'react-router-dom';
 
 const VolunteerForm = () => {
-   const navigate = useNavigate();
-  
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     fullName: '',
     Dob: '',
@@ -21,6 +23,29 @@ const VolunteerForm = () => {
     reason: '',
     reference: ''
   });
+
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        fullName: user.username,
+        email: user.email,
+        Dob: '',
+        phoneNo: '',
+        city: '',
+        state: '',
+        address: '',
+        pincode: '',
+        availability: '',
+        skills: '',
+        experience: '',
+        interest: '',
+        reason: '',
+        reference: ''
+      });
+    }
+  }, [user]);
 
   const handleInput = (e) => {
     const { name, value } = e.target;
