@@ -1,10 +1,14 @@
 const mongoose = require('mongoose');
 
 const paymentSchema = new mongoose.Schema({
-  // userId: { 
-  //   type: String,
-  //   required: true,
-  // },
+  userId: { 
+    type: String,
+    required: true,    
+  },
+  email: { 
+    type: String,
+    required: true,
+  },
   transactionId: {
     type: String,
     required: true,
@@ -23,7 +27,6 @@ const paymentSchema = new mongoose.Schema({
   }, 
   createdAt: { 
     type: Date, 
-    default: Date.now, 
   },
 });
 

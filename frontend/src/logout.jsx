@@ -1,15 +1,19 @@
-import { useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "./store/auth";
 
 export const Logout = () => {
-
   const { LogoutUser } = useAuth();
-  
+  const navigate = useNavigate();
+
   useEffect(() => {
-    LogoutUser();
-  }, [LogoutUser]);
+    const performLogout = async () => {
+      await LogoutUser();
+      navigate("/login");
+    };
 
-  return <Navigate to="/" />
+    performLogout();
+  }, [LogoutUser, navigate]);
 
+  return null;
 };

@@ -14,9 +14,6 @@ export const AuthProvider = ({ children }) => {
     console.log('Token stored:', newToken);
   };
   
-  // let isLoggedIn = !!token;
-  // console.log("isLoggedIn", isLoggedIn)
-  
   const LogoutUser = () => {
     setToken('');
     setUser(null);
@@ -39,13 +36,13 @@ export const AuthProvider = ({ children }) => {
 
       if(response.ok){
         const data = await response.json();
-        console.log('user data', data.userData);
+        // console.log('user data', data.userData);
+        console.log('userID', data.userData._id);
         setUser(data.userData);
       }
     }catch(error){
       console.log("Error fetching user data")
     }
-
   };
 
   // donation support

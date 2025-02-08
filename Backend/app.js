@@ -35,20 +35,16 @@ app.use(bodyParser.raw({ type: 'application/json' }));
 
 const { savePayment } = require('./controllers/payment.controller');
 
-app.get('/', (req, res) => {
-  // res.render("hello");
-  res.json({ message: "Welcome to the API" });
-});
-
 
 app.post('/donate', async (req, res) => {
   try {
-    const { price } = req.body; 
+    const { price, userId } = req.body;
     console.log('Received donation request with price:', price);
+    console.log('Received donation request with userId:', userId);
 
-    if (!price) { 
-      console.log('Price is missing in the request');
-      throw new Error('Price is required'); 
+    if (!price || !userId) {
+      console.log('Price or userId is missing in the request');
+      throw new Error('Price and userId are required');
     }
 
     const session = await stripe.checkout.sessions.create({
@@ -59,19 +55,14 @@ app.post('/donate', async (req, res) => {
             name: 'Donation',
           },
           unit_amount: price * 100,
-          // * 100 to convert to pesa "unit conversion"
-  
         },
         quantity: 1,
       }],
       mode: 'payment',
-      // success_url: `${process.env.BASE_URL}/complete?session_id={CHECKOUT_SESSION_ID}`
-      // success_url: `${process.env.BASE_URL}/paymentHistory`,
-      // success_url: `${process.env.BASE_URL}/paymentHistory?session_id={CHECKOUT_SESSION_ID}`,
-      success_url: 'http://localhost:4000/paymentSuccess?session_id={CHECKOUT_SESSION_ID}',
+      success_url: `http://localhost:4000/paymentSuccess?session_id={CHECKOUT_SESSION_ID}&userId=${userId}`,
       cancel_url: `${process.env.BASE_URL}/cancel`,
     });
-    console.log('Stripe session created:', session.id);
+    console.log(`userID: ${userId}, Stripe session created: ${session.id}`);
     res.json({ url: session.url });
   } catch (error) {
     console.error('Error creating donation session:', error);
@@ -79,21 +70,26 @@ app.post('/donate', async (req, res) => {
   }
 });
 
+
 app.get('/paymentSuccess', async (req, res) => {
-  const { session_id } = req.query;
+  const { session_id, userId } = req.query;
 
   try {
     const session = await stripe.checkout.sessions.retrieve(session_id);
     console.log('Payment successful:', session);
+    console.log(`Retrieved session for user ID: ${userId}`);
+
 
     // Save payment details to database
     const paymentDetails = {
-      // sessionId: session.id,
+      email: session.customer_details.email,
+      userId: userId,
       transactionId: session.payment_intent, 
       amountTotal: session.amount_total / 100,
       currency: session.currency,
       paymentStatus: session.payment_status,
-      createdAt: new Date()
+      createdAt: new Date(),
+      
     };
 
     const formattedDate = paymentDetails.createdAt.toLocaleString('en-IN', { 
@@ -111,13 +107,6 @@ app.get('/paymentSuccess', async (req, res) => {
     // Your function to save details
     await savePaymentDetailsToDatabase(paymentDetails);
 
-    // Send confirmation email -- Your function to send email
-    // await sendConfirmationEmail(session.customer_email, paymentDetails); 
-
-    // Update user account  -- Your function to update user account
-    // await updateUserAccount(session.customer_email); 
-
-    // res.send('Payment was successful!');
     res.redirect(`${process.env.BASE_URL}/paymentHistory`);
 
   } catch (error) {
@@ -127,30 +116,16 @@ app.get('/paymentSuccess', async (req, res) => {
 });
 
 // function to save payment details to database -- Your database logic here
-async function savePaymentDetailsToDatabase(paymentDetails) { 
-  try { 
+async function savePaymentDetailsToDatabase(paymentDetails) {
+  try {
     const Payment = require('./models/paymentDetails.models');
-    const payment = new Payment({
-      ...paymentDetails,
-      userId: paymentDetails.userId // Ensure userId is included
-    });
-    await payment.save(); 
-    console.log('Payment saved successfully:', paymentDetails); 
-  } catch (error) { 
-    console.error('Error saving payment details:', error); 
-  } 
+    const payment = new Payment(paymentDetails);
+    await payment.save();
+    console.log('Payment saved successfully:', paymentDetails);
+  } catch (error) {
+    console.error('Error saving payment details:', error);
+  }
 }
-// function to send confirmation email -- Your email sending logic here
-// async function sendConfirmationEmail(email, paymentDetails) {
-  // console.log('Sending confirmation email to:', email);
-// }
-
-// function to update user account
-// async function updateUserAccount(email) {
-  // Your user account updating logic here
-  // console.log('Updating user account for:', email);
-// }
-
 
 
 app.get('/complete', async (req, res) => {
@@ -168,6 +143,7 @@ app.get('/complete', async (req, res) => {
 
     // Create a structured payment history object
     const paymentHistory = {
+      userId: session.userId,
       transactionId: session.id,
       amount: session.amount_total / 100, // Convert from cents to actual currency
       currency: session.currency,
@@ -211,6 +187,7 @@ app.get('/paymentHistories', async (req, res) => {
   }
 });
 
+
 app.use('/users', userRoutes);
 app.use('/contact_form', contactRoute);
 app.use('/support_By_Donating', supportRoute);
@@ -224,7 +201,5 @@ app.use((req, res) => {
   res.status(404).json({ message: "Error 404: Resource not found" });
 });
 
-
-module.exports = app;
 
 module.exports = app;

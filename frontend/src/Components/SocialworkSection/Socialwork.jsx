@@ -2,13 +2,14 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../store/auth';
 
-const handleDonate = async (price, isLoggedIn) => {
+const handleDonate = async (price, isLoggedIn, user) => {
   if (!isLoggedIn) {
     alert('Please login to make a donation');
     return;
   }
+
   try {
-    const response = await axios.post('http://localhost:4000/donate', { price });
+    const response = await axios.post('http://localhost:4000/donate', { price, userId: user._id });
 
     if (response && response.status === 200) {
       console.log('Donation response:', response.data); 
@@ -24,7 +25,7 @@ const handleDonate = async (price, isLoggedIn) => {
 };
 
 const Socialwork = () => {
-  const { supports, isLoggedIn  } = useAuth();
+  const { supports, isLoggedIn, user } = useAuth();
 
   return (
     <div className="container mx-auto px-10 py-12 bg-gray-100">
@@ -39,7 +40,7 @@ const Socialwork = () => {
                 <h3 className="text-xl font-semibold text-gray-800">{title}</h3>
                 <p className="text-gray-600 text-sm mt-2">{description}</p>
                 <button
-                    onClick={() => handleDonate(donationAmount , isLoggedIn)}
+                    onClick={() => handleDonate(donationAmount, isLoggedIn, user)}
                     className="donate-button mt-4 inline-block py-2 px-7 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
                   >
                     Donate {donationAmount}
@@ -54,3 +55,43 @@ const Socialwork = () => {
 };
 
 export default Socialwork;
+
+// past this data in database to show the support card in the website
+
+// [
+//   {
+//     "title": "Support Education",
+//     "description": "Help us provide quality education to underprivileged children.",
+//     "imageLink": "https://c0.wallpaperflare.com/preview/610/331/738/balloons-charity-col…",
+//     "alt": "Education support image",
+//     "donationAmount": 5000
+//   },
+//   {
+//     "title": "Healthcare Assistance",
+//     "description": "Contribute to providing essential healthcare services in rural areas.",
+//     "imageLink": "https://c0.wallpaperflare.com/preview/610/331/738/balloons-charity-col…",
+//     "alt": "Healthcare support image",
+//     "donationAmount": 3000
+//   },
+//   {
+//     "title": "Food Donation",
+//     "description": "Join us in our mission to eliminate hunger by donating food packages.",
+//     "imageLink": "https://c0.wallpaperflare.com/preview/610/331/738/balloons-charity-col…",
+//     "alt": "Food donation image",
+//     "donationAmount": 2000
+//   },
+//   {
+//     "title": "Disaster Relief",
+//     "description": "Support our disaster relief efforts to help affected communities.",
+//     "imageLink": "https://c0.wallpaperflare.com/preview/610/331/738/balloons-charity-col…",
+//     "alt": "Disaster relief image",
+//     "donationAmount": 7000
+//   },
+//   {
+//     "title": "Clean Water Initiative",
+//     "description": "Ensure access to clean and safe drinking water for all.",
+//     "imageLink": "https://c0.wallpaperflare.com/preview/610/331/738/balloons-charity-col…",
+//     "alt": "Clean water initiative image",
+//     "donationAmount": 4000
+//   }
+// ]
