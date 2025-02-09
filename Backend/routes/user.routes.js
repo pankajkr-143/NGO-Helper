@@ -34,6 +34,7 @@ router.post(
     next();
   },
   userController.registerUser
+
 );
 
 // Login a user
@@ -58,6 +59,7 @@ router.post(
 
 // Get user profile
 router.get('/profile', authMiddleware, userController.getUserProfile);
+
 
 // Logout a user
 router.get('/logout', authMiddleware, userController.logoutUser);
