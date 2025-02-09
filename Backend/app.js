@@ -18,7 +18,7 @@ const paymentRoute = require('./routes/payment.routes');
 const volunteerRoute = require('./routes/volunteer.routes');
 
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: `${process.env.BASE_URL}`,
   methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
   credentials: true,
 };
@@ -59,7 +59,7 @@ app.post('/donate', async (req, res) => {
         quantity: 1,
       }],
       mode: 'payment',
-      success_url: `http://localhost:4000/paymentSuccess?session_id={CHECKOUT_SESSION_ID}&userId=${userId}`,
+      success_url: `${process.env.INTERNAL_URL}/paymentSuccess?session_id={CHECKOUT_SESSION_ID}&userId=${userId}`,
       cancel_url: `${process.env.BASE_URL}/cancel`,
     });
     console.log(`userID: ${userId}, Stripe session created: ${session.id}`);
