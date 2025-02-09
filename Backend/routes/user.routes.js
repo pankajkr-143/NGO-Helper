@@ -5,21 +5,16 @@ const userController = require("../controllers/user.controller");
 const { authMiddleware } = require("../middlewares/auth.middleware");
 
 // Registering a new user
-
 router.post(
   "/register",
   [
-    // checking Email
     body('email').isEmail().withMessage('Invalid Email'),
-    // Checking length of name and verifying
     body('username')
       .isLength({ min: 3 })
       .withMessage(' name must be at least 3 character long'),
-    // checking password length should not less than 6 char.
     body('password')
       .isLength({ min: 6 })
       .withMessage('Password must be at least 6 character long'),
-    // checking confirm password
     body('confirmPassword')
       .isLength({ min: 6 })
       .withMessage('Password must be at least 6 character long')
@@ -39,16 +34,13 @@ router.post(
     next();
   },
   userController.registerUser
-)
+);
 
 // Login a user
-
 router.post(
   '/login', 
   [
-    // checking Email
     body('email').isEmail().withMessage('Invalid Email'),
-    // checking password length should not less than 6 char.
     body('password')
       .isLength({ min: 6 })
       .withMessage('Password must be at least 6 character long'),
@@ -65,11 +57,9 @@ router.post(
 );
 
 // Get user profile
-
 router.get('/profile', authMiddleware, userController.getUserProfile);
 
 // Logout a user
-
 router.get('/logout', authMiddleware, userController.logoutUser);
 
 module.exports = router;

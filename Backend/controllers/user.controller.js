@@ -4,8 +4,7 @@ const { validationResult } = require('express-validator');
 const blacklistTokenModel = require('../models/blacklistToken.model');
 
 // register a new user and verify the field values.
-
-module.exports.registerUser = async (req, res, next) => {
+const registerUser = async (req, res, next) => {
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -44,8 +43,7 @@ module.exports.registerUser = async (req, res, next) => {
 }
 
 // Login a user and verify the field values.
-
-module.exports.loginUser = async(req, res, next) => {
+const loginUser = async (req, res, next) => {
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -75,8 +73,7 @@ module.exports.loginUser = async(req, res, next) => {
 }
 
 // Get user profile
-
-module.exports.getUserProfile = async(req, res, next) => {
+const getUserProfile = async (req, res, next) => {
   // res.status(200).json(req.user);
   try {
     const userData = req.user;
@@ -89,12 +86,18 @@ module.exports.getUserProfile = async(req, res, next) => {
 }
 
 // Logout a user
-
-module.exports.logoutUser = async(req, res, next) => {
+const logoutUser = async (req, res, next) => {
   res.clearCookie('token');
   const token = req.cookies.token || req.headers.authorization.split(' ')[1];
 
   await blacklistTokenModel.create({ token });
 
   res.status(200).json({message: 'Logged out successfully'});
-}
+};
+
+module.exports = {
+  registerUser,
+  loginUser,
+  getUserProfile,
+  logoutUser,
+};
