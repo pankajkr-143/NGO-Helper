@@ -23,8 +23,6 @@ const registerUser = async (req, res, next) => {
   const hashedPassword = await userModel.hashPassword(password);
   const hashedconfirmPassword = await userModel.hashPassword(confirmPassword);
 
-  // const hashedPassword = await bcrypt.hash(password, 10); 
-
   const user = await userService.createUser({
     username,
     email,
@@ -33,10 +31,8 @@ const registerUser = async (req, res, next) => {
   });
 
   if (user) {
-    // Generate a token
     const token = user.generateAuthToken(); 
-    // Include _id in response
-    res.status(201).json({ token, user: { userId: user._id} }); 
+    res.status(201).json({ token, user: { userId: user._id } }); 
   } else {
     res.status(400).json({ message: 'Registration failed' });
   }
@@ -47,7 +43,7 @@ const loginUser = async (req, res, next) => {
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({errors : errors.array() });
+    return res.status(400).json({ errors: errors.array() });
   }
 
   const { email, password } = req.body;
@@ -55,33 +51,30 @@ const loginUser = async (req, res, next) => {
   const user = await userModel.findOne({ email }).select('+password');
 
   if (!user) {
-    return res.status(401).json({message: 'Invalid Email or password'});
+    return res.status(401).json({ message: 'Invalid Email or password' });
   }
 
   const isMatch = await user.comparePassword(password);
 
   if (!isMatch) {
-    return res.status(401).json({message: 'Invalid Email or password'});
+    return res.status(401).json({ message: 'Invalid Email or password' });
   }
 
-  const token = user.generateAuthToken(); // Generate a token
+  const token = user.generateAuthToken();
   const userId = user._id.toString();
 
   res.cookie('token', token);
 
-  res.status(200).json({ token, userId, user }); // Include token in response
+  res.status(200).json({ token, userId, user });
 }
 
 // Get user profile
 const getUserProfile = async (req, res, next) => {
-  // res.status(200).json(req.user);
   try {
     const userData = req.user;
-    // console.log(userData);
-    // res.status(200).json({msg: "hi user"})
-    return res.status(200).json({ userData});
-  } catch(error){
-    console.log(`error from the user route ${error}`)
+    return res.status(200).json({ userData });
+  } catch (error) {
+    console.log(`error from the user route ${error}`);
   }
 }
 
@@ -92,7 +85,7 @@ const logoutUser = async (req, res, next) => {
 
   await blacklistTokenModel.create({ token });
 
-  res.status(200).json({message: 'Logged out successfully'});
+  res.status(200).json({ message: 'Logged out successfully' });
 };
 
 module.exports = {
