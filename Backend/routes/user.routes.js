@@ -1,23 +1,23 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const { body, validationResult } = require("express-validator");
-const userController = require("../controllers/user.controller");
-const { authMiddleware } = require("../middlewares/auth.middleware");
+const { body, validationResult } = require('express-validator');
+const userController = require('../controllers/user.controller');
+const { authMiddleware } = require('../middlewares/auth.middleware');
 
 // Registering a new user
 router.post(
-  "/register",
+  '/register',
   [
     body('email').isEmail().withMessage('Invalid Email'),
     body('username')
       .isLength({ min: 3 })
-      .withMessage(' name must be at least 3 character long'),
+      .withMessage('Name must be at least 3 characters long'),
     body('password')
       .isLength({ min: 6 })
-      .withMessage('Password must be at least 6 character long'),
+      .withMessage('Password must be at least 6 characters long'),
     body('confirmPassword')
       .isLength({ min: 6 })
-      .withMessage('Password must be at least 6 character long')
+      .withMessage('Password must be at least 6 characters long')
       .custom((value, { req }) => {
         if (value !== req.body.password) {
           throw new Error('Password confirmation does not match password');
@@ -38,12 +38,12 @@ router.post(
 
 // Login a user
 router.post(
-  '/login', 
+  '/login',
   [
     body('email').isEmail().withMessage('Invalid Email'),
     body('password')
       .isLength({ min: 6 })
-      .withMessage('Password must be at least 6 character long'),
+      .withMessage('Password must be at least 6 characters long'),
   ],
   (req, res, next) => {
     const errors = validationResult(req);
