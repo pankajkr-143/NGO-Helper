@@ -13,7 +13,8 @@ const Signup = () => {
   
   // For navigation
   const navigate = useNavigate();
-  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   // Function to store token in local storage
   const  { storeTokenInLS }  = useAuth();
 
@@ -30,7 +31,7 @@ const Signup = () => {
   // handling the form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsSubmitting(true);
     // Print user input to console
     // console.log("User input:", user);
 
@@ -41,8 +42,8 @@ const Signup = () => {
     };
 
 
-    const button = document.getElementById('submitButton');
-      button.disabled = true;
+    // const button = document.getElementById('submitButton');
+    //   button.disabled = true;
 
     try {
       const response = await fetch(`http://localhost:4000/users/register`, {
@@ -151,6 +152,7 @@ const Signup = () => {
           {/* Submit Button */}
           <button
             type="submit"
+            disabled={isSubmitting}
             className="w-full text-sm bg-blue-700 text-white py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition"
           >
             Sign Up
