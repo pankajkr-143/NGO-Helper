@@ -40,6 +40,10 @@ const Signup = () => {
       return;
     };
 
+
+    const button = document.getElementById('submitButton');
+      button.disabled = true;
+
     try {
       const response = await fetch(`http://localhost:4000/users/register`, {
         method: "POST",
@@ -78,6 +82,9 @@ const Signup = () => {
     } catch (err) {
       // console.error("Fetch error:", err);
       setError("An error occurred during signup");
+    }
+    finally {
+      button.disabled = false;
     }
   };
 
