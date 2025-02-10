@@ -22,5 +22,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.2",
     "stripe": "^17.5.0"
+  },
+  "engines": {
+    "node": "v20.12.2"
   }
 }
