@@ -81,6 +81,9 @@ const loginUser = async (req, res) => {
 const getUserProfile = async (req, res) => {
   try {
     const userData = req.user;
+    if (!userData) {
+      return res.status(404).json({ message: "User not found" });
+    }
     return res.status(200).json({ userData });
   } catch (error) {
     console.error(`Error getting user profile: ${error}`);

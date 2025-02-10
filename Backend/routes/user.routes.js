@@ -29,6 +29,8 @@ router.post(
 );
 
 // Get user profile
+console.log("checking route", userController.getUserProfile);
+
 router.get('/profile', authMiddleware, userController.getUserProfile);
 
 // Logout a user
