@@ -5,7 +5,7 @@ const userController = require('../controllers/user.controller');
 // Authentication middleware
 const { authMiddleware } = require('../middlewares/auth.middleware'); 
 
- // Validation middleware import
+// Validation middleware import
 const {
   validateRequest,
   registerValidationRules,
@@ -29,8 +29,6 @@ router.post(
 );
 
 // Get user profile
-console.log("checking route", userController.getUserProfile);
-
 router.get('/profile', authMiddleware, userController.getUserProfile);
 
 // Logout a user

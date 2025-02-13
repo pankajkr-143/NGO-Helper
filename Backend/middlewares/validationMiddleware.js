@@ -39,7 +39,7 @@ const loginValidationRules = [
 ];
 
 module.exports = {
-  validateRequest,
   registerValidationRules,
   loginValidationRules,
+  validateRequest,
 };
