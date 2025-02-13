@@ -36,6 +36,10 @@ app.use(bodyParser.raw({ type: 'application/json' }));
 const { savePayment } = require('./controllers/payment.controller');
 
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the backend of the website");
+}); 
+
 app.post('/donate', async (req, res) => {
   try {
     const { price, userId } = req.body;
