@@ -11,9 +11,11 @@ const handleValidationErrors = (req, res) => {
   }
 };
 
+
+
 // Register a new user and verify the field values.
 const registerUser = async (req, res) => {
-  handleValidationErrors(req, res);  // Handle validation errors
+  if (handleValidationErrors(req, res)) return;
 
   const { username, email, password, confirmPassword } = req.body;
 
@@ -42,14 +44,14 @@ const registerUser = async (req, res) => {
       res.status(400).json({ message: 'Registration failed' });
     }
   } catch (error) {
-    console.error(error);
+    console.error(`Error registering user: ${error.message}`);
     res.status(500).json({ message: 'Server error' });
   }
 };
 
 // Login a user and verify the field values.
 const loginUser = async (req, res) => {
-  handleValidationErrors(req, res);  // Handle validation errors
+  if (handleValidationErrors(req, res)) return;
 
   const { email, password } = req.body;
 
@@ -72,7 +74,7 @@ const loginUser = async (req, res) => {
     res.cookie('token', token);
     res.status(200).json({ token, userId, user });
   } catch (error) {
-    console.error(error);
+    console.error(`Error logging in user: ${error.message}`);
     res.status(500).json({ message: 'Server error' });
   }
 };
@@ -94,12 +96,16 @@ const getUserProfile = async (req, res) => {
 // Logout a user
 const logoutUser = async (req, res) => {
   try {
-    res.clearCookie('token');
     const token = req.cookies.token || req.headers.authorization.split(' ')[1];
+
+    if (!token) {
+      return res.status(400).json({ message: 'No token provided' });
+    }
 
     await blacklistTokenModel.create({ token });
 
-    res.status(200).json({ message: 'Logged out successfully' });
+    res.clearCookie('token');
+    return res.status(200).json({ message: 'Logged out successfully' });
   } catch (error) {
     console.error(`Error logging out user: ${error}`);
     res.status(500).json({ message: 'Server error' });
