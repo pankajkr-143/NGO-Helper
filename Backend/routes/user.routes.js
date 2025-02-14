@@ -33,14 +33,13 @@ router.post(
 // Get user profile
 router.get(
   '/profile', 
-  userController.getUserProfile,
-  authMiddleware
+  authMiddleware,
+  userController.getUserProfile
 );
 
 // Logout a user
 router.get(
-  '/logout', 
-  authMiddleware, 
+  '/logout',  
   userController.logoutUser
 );
 
