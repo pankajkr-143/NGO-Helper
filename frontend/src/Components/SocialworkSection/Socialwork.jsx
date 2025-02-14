@@ -9,7 +9,7 @@ const handleDonate = async (price, isLoggedIn, user) => {
   }
 
   try {
-    const response = await axios.post('http://localhost:4000/donate', { price, userId: user._id });
+    const response = await axios.post('http://localhost:4000/donations/donate', { price, userId: user._id });
 
     if (response && response.status === 200) {
       console.log('Donation response:', response.data); 

@@ -11,8 +11,6 @@ const handleValidationErrors = (req, res) => {
   }
 };
 
-
-
 // Register a new user and verify the field values.
 const registerUser = async (req, res) => {
   if (handleValidationErrors(req, res)) return;

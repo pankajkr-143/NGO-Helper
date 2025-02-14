@@ -9,7 +9,7 @@ const PaymentHistory = ({ userId }) => {
   useEffect(() => {
     const fetchPayments = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/paymentHistories?userId=${userId}`, {
+        const response = await fetch(`http://localhost:4000/payments/histories/paymentHistories?userId=${userId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
