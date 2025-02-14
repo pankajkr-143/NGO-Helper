@@ -39,7 +39,7 @@ const registerUser = async (req, res) => {
 
     if (user) {
       const token = user.generateAuthToken();
-      res.status(201).json({ token, user: { userId: user._id } });
+      res.status(201).json({ token, user: { userId: user._id }, userInfo: { user } });
     } else {
       res.status(400).json({ message: 'Registration failed' });
     }

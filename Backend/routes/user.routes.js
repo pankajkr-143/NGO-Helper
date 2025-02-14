@@ -3,7 +3,7 @@ const router = express.Router();
 // Controller import
 const userController = require('../controllers/user.controller');
 
-console.log(userController);
+console.log("userController :", userController);
 // Authentication middleware
 const { authMiddleware } = require('../middlewares/auth.middleware'); 
 
