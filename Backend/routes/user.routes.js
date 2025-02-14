@@ -33,8 +33,8 @@ router.post(
 // Get user profile
 router.get(
   '/profile', 
-  authMiddleware, 
   userController.getUserProfile
+  authMiddleware, 
 );
 
 // Logout a user
