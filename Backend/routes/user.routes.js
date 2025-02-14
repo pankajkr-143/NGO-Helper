@@ -38,10 +38,10 @@ router.get(
 );
 
 // Logout a user
-// router.get(
-//   '/logout', 
-//   authMiddleware, 
-//   userController.logoutUser
-// );
+router.get(
+  '/logout', 
+  authMiddleware, 
+  userController.logoutUser
+);
 
 module.exports = router;
