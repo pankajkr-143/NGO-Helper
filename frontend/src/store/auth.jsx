@@ -14,12 +14,28 @@ export const AuthProvider = ({ children }) => {
     console.log('Token stored:', newToken);
   };
   
-  const LogoutUser = () => {
-    setToken('');
-    setUser(null);
-    localStorage.removeItem("token");
-    window.location.reload();
-    console.log('User logged out');
+
+  
+  const logout = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/users/logout", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        setToken('');
+        setUser(null);
+        localStorage.removeItem("token");
+        console.log('User logged out successfully');
+      } else {
+        console.error('Failed to log out');
+      }
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
   };
 
   // JWT AUTHENTICATION --> to get currently loggedIN user data
@@ -74,7 +90,7 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, storeTokenInLS, LogoutUser, user, supports }}>
+    <AuthContext.Provider value={{ isLoggedIn, storeTokenInLS, logout, user, supports }}>
       {children}
     </AuthContext.Provider>
   );

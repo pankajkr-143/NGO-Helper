@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../store/auth";
 
 const Header = () => {
-  const { isLoggedIn, LogoutUser, user } = useAuth();
+  const { isLoggedIn, user } = useAuth();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
@@ -65,15 +65,13 @@ const Header = () => {
             </button>
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50">
-                <button
-                  onClick={() => {
-                    LogoutUser();
-                    handleLinkClick();
-                  }}
+                <Link
+                  to="/logout"
                   className="block px-3 py-1 text-gray-700 hover:bg-gray-100"
+                  onClick={handleLinkClick}
                 >
                   Logout
-                </button>
+                </Link>
                 <Link
                   to="/paymentHistory"
                   className="block px-3 py-1 text-gray-700 hover:bg-gray-100"

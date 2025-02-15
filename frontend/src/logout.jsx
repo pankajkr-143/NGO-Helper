@@ -1,19 +1,20 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "./store/auth";
+import { useNavigate } from "react-router-dom"; 
 
 export const Logout = () => {
-  const { LogoutUser } = useAuth();
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     const performLogout = async () => {
-      await LogoutUser();  // Clears auth state
-      navigate("/");  // Redirects to home page
+      await logout(); 
+      navigate("/login");
+      window.location.reload();
     };
 
     performLogout();
-  }, [LogoutUser, navigate]);
+  }, [logout, navigate]);
 
-  return null;
+  return ;
 };

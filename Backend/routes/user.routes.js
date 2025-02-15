@@ -33,7 +33,7 @@ router.post(
 // Get user profile
 router.get(
   '/profile', 
-  authMiddleware,
+  // authMiddleware,
   userController.getUserProfile
 );
 
