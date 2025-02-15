@@ -4,6 +4,7 @@ const blackListTokenModel = require("../models/blacklistToken.model");
 
 // Middleware to check if user is authenticated and token is valid
 module.exports.authUser = async (req, res, next) => {
+  console.log('Auth Middleware Called');
   const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
 
   if (!token) {

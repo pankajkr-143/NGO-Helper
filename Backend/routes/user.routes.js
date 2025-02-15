@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user.controller');
-const usergetProfileLogoutController = require('../controllers/getProfilelogout.controller');
+const usergetProfileLogoutController = require('../controllers/getProfileLogout.controller');
 // Authentication middleware
 const { authUser } = require('../middlewares/auth.middleware'); 
 // Validation middleware import
@@ -10,6 +10,10 @@ const {
   registerValidationRules,
   loginValidationRules,
 } = require('../middlewares/validationMiddleware');
+
+console.log('Logout User Function:', usergetProfileLogoutController.logoutUser);
+console.log('Get User Profile Function:', usergetProfileLogoutController.getUserProfile);
+
 // Registering a new user
 router.post(
   '/register',
