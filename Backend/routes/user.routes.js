@@ -30,18 +30,19 @@ router.post(
   userController.loginUser
 );
 
-// Get user profile
-router.get(
-  '/profile', 
-  // authMiddleware,
-  userController.getUserProfile
-);
-
 // Logout a user
 router.get(
   '/logout', 
   authMiddleware, 
   userController.logoutUser
+);
+
+
+// Get user profile
+router.get(
+  '/profile', 
+  authMiddleware,
+  userController.getUserProfile
 );
 
 module.exports = router;
