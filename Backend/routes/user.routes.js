@@ -25,16 +25,16 @@ router.post(
   userController.loginUser
 );
 // Logout a user
-router.get(
-  '/logout', 
-  authUser, 
-  usergetProfileLogoutController.logoutUser
-);
+// router.get(
+//   '/logout', 
+//   authUser, 
+//   usergetProfileLogoutController.logoutUser
+// );
 // Get user profile
-router.get(
-  '/profile', 
-  authUser,
-  usergetProfileLogoutController.getUserProfile
-);
+// router.get(
+//   '/profile', 
+//   authUser,
+//   usergetProfileLogoutController.getUserProfile
+// );
 
 module.exports = router;
