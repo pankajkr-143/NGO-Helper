@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user.controller');
+const usergetProfileLogoutController = require('../controllers/getProfilelogout.controller');
 // Authentication middleware
 const { authMiddleware } = require('../middlewares/auth.middleware'); 
 // Validation middleware import
@@ -27,13 +28,13 @@ router.post(
 router.get(
   '/logout', 
   authMiddleware, 
-  userController.logoutUser
+  usergetProfileLogoutController.logoutUser
 );
 // Get user profile
 router.get(
   '/profile', 
   authMiddleware,
-  userController.getUserProfile
+  usergetProfileLogoutController.getUserProfile
 );
 
 module.exports = router;

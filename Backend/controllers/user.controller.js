@@ -77,42 +77,7 @@ const loginUser = async (req, res) => {
   }
 };
 
-// Get user profile
-const getUserProfile = async (req, res) => {
-  try {
-    const userData = req.user;
-    if (!userData) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    return res.status(200).json({ userData });
-  } catch (error) {
-    console.error(`Error getting user profile: ${error}`);
-    res.status(500).json({ message: 'Server error' });
-  }
-};
-
-// Logout a user
-const logoutUser = async (req, res) => {
-  try {
-    const token = req.cookies.token || req.headers.authorization.split(' ')[1];
-
-    if (!token) {
-      return res.status(400).json({ message: 'No token provided' });
-    }
-
-    await blacklistTokenModel.create({ token });
-
-    res.clearCookie('token');
-    return res.status(200).json({ message: 'Logged out successfully' });
-  } catch (error) {
-    console.error(`Error logging out user: ${error}`);
-    res.status(500).json({ message: 'Server error' });
-  }
-};
-
 module.exports = {
   registerUser,
-  loginUser,
-  getUserProfile,
-  logoutUser,
+  loginUser
 };
