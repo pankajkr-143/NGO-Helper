@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const blackListTokenModel = require("../models/blacklistToken.model");
 
 // Middleware to check if user is authenticated and token is valid
-module.exports.authUser  = async (req, res, next) => {
+module.exports.authUser = async (req, res, next) => {
   const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
 
   if (!token) {

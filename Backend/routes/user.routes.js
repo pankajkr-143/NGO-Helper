@@ -3,7 +3,7 @@ const router = express.Router();
 const userController = require('../controllers/user.controller');
 const usergetProfileLogoutController = require('../controllers/getProfilelogout.controller');
 // Authentication middleware
-const  authMiddleware  = require('../middlewares/auth.middleware'); 
+const { authUser } = require('../middlewares/auth.middleware'); 
 // Validation middleware import
 const {
   validateRequest,
@@ -27,13 +27,13 @@ router.post(
 // Logout a user
 router.get(
   '/logout', 
-  authMiddleware.authUser , 
+  authUser, 
   usergetProfileLogoutController.logoutUser
 );
 // Get user profile
 router.get(
   '/profile', 
-  authMiddleware.authUser ,
+  authUser,
   usergetProfileLogoutController.getUserProfile
 );
 
